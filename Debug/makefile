@@ -10,8 +10,8 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./Sources/Asm/proc2.obj" \
-"./Sources/C/app1.obj" \
+"./Sources/Asm/functionsASM.obj" \
+"./Sources/C/app2.obj" \
 "../C6713dsk.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -161,9 +161,9 @@ APP.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Sources\Asm\proc2.obj" "Sources\C\app1.obj" 
-	-$(RM) "Sources\C\app1.d" 
-	-$(RM) "Sources\Asm\proc2.d" 
+	-$(RM) "Sources\Asm\functionsASM.obj" "Sources\C\app2.obj" 
+	-$(RM) "Sources\C\app2.d" 
+	-$(RM) "Sources\Asm\functionsASM.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
