@@ -1,14 +1,16 @@
-#include <stdio.h>
+#include <stdbool.h>
+#include "test_asm.h"
 
-typedef int bool;
-#define true 1
-#define false 0
+unsigned long long  compiled(unsigned int *TabInt){
+    return *TabInt * *(TabInt+1);
+}
 
-
-main(void)
+main()
 {
+    unsigned int args[] = {55, 55};
 
+    test();
 
-    return 0;
-
+    unsigned long long val = compiled(args);
+    //printf("%d\n", val);
 }
