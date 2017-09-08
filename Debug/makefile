@@ -10,8 +10,8 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./Sources/Asm/proc2.obj" \
-"./Sources/C/app1.obj" \
+"./Sources/Asm/functionsASM.obj" \
+"./Sources/C/app2.obj" \
 "../C6713dsk.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -148,7 +148,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 APP.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C6000 Linker'
-	"C:/ti/ccsv7/tools/compiler/c6000_7.4.20/bin/cl6x" -mv6700 --abi=coffabi -g --undefine=CHIP_6713 --diag_wrap=off --display_error_number --diag_warning=225 --mem_model:data=far --mem_model:const=far -z -m"APP.map" --stack_size=0x1000 --heap_size=0x1000 -i"C:/ti/ccsv7/tools/compiler/c6000_7.4.20/lib" -i"C:/ti/ccsv7/tools/compiler/c6000_7.4.20/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="APP_linkInfo.xml" --rom_model -o "APP.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv7/tools/compiler/c6000_7.4.20/bin/cl6x" -mv6700 --abi=coffabi -g --undefine=CHIP_6713 --diag_warning=225 --diag_wrap=off --display_error_number --mem_model:const=far --mem_model:data=far -z -m"APP.map" --stack_size=0x1000 --heap_size=0x1000 -i"C:/ti/ccsv7/tools/compiler/c6000_7.4.20/lib" -i"C:/ti/ccsv7/tools/compiler/c6000_7.4.20/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="APP_linkInfo.xml" --rom_model -o "APP.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -161,9 +161,9 @@ APP.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Sources\Asm\proc2.obj" "Sources\C\app1.obj" 
-	-$(RM) "Sources\C\app1.d" 
-	-$(RM) "Sources\Asm\proc2.d" 
+	-$(RM) "Sources\Asm\functionsASM.obj" "Sources\C\app2.obj" 
+	-$(RM) "Sources\C\app2.d" 
+	-$(RM) "Sources\Asm\functionsASM.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
