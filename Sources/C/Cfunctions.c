@@ -8,14 +8,35 @@
 #include "Cfunctions.h"
 
 bool ObtenirType(int *Liste){
+    if(Liste != NULL)
+    {
+        Liste[0] = dataType;
+
+        if(Liste[0] != 0 && Liste[0] < 5)
+            return true;
+    }
     return false;
 }
 
 bool ObtenirFormat(int *Liste){
+    if(Liste != NULL)
+    {
+        Liste[1] = dataFormat;
+
+        if(Liste[1] != 0 && Liste[1] < 5)
+            return true;
+    }
     return false;
 }
 
 bool ObtenirOperation(int *Liste){
+    if(Liste != NULL)
+    {
+        Liste[2] = operation;
+
+        if(Liste[2] != 0 && Liste[2] < 6)
+            return true;
+    }
     return false;
 }
 
@@ -24,7 +45,12 @@ bool AnalyserListe(int *Liste, unsigned short *TabShortNoS, short *TabShortS){
 }
 
 int ConvertirListe(int *Liste){
-    return 0;
+    int choix = 0;
+
+    if(Liste[0] != 0 && Liste[0] < 5 && Liste[1] != 0 && Liste[1] < 5)
+        choix = 10*Liste[0] + Liste[1];
+
+    return choix;
 }
 
 bool ChoisirOperandesXXX(int *Tab){
