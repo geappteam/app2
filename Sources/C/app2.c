@@ -1,12 +1,8 @@
-#include <stdio.h>
+#include "Cfunctions.h"
 
-typedef int bool;
-#define true 1
-#define false 0
-
-
-main(void)
+int main(void)
 {
+
 
 
     return 0;
