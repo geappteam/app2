@@ -16,16 +16,17 @@ bool test(){
     // unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
     {
         unsigned int op1[] = { 50, 50 };
-        unsigned int op2[] = {0xFFFF, 3};
+        unsigned int op2[] = {0xFFFFFFFF, 0xFFFFFFFF};
 
-        if (MpyEntierNonSigneOp32bitsRes64bits(op1) != op1[0] * op1[1]){
+        if (MpyEntierNonSigneOp32bitsRes64bits(op2) != (unsigned long long)op2[0] * op2[1]){
             printf("Failed:\tMpyEntierNonSigneOp32bitsRes64bits\n");
-            printf("%d * %d != %d\n", op1[0], op1[1], MpyEntierNonSigneOp32bitsRes64bits(op1));
+            printf("%d * %d != %d\n", op2[0], op2[1], MpyEntierNonSigneOp32bitsRes64bits(op2));
             return false;
         }
-        if (MpyEntierNonSigneOp32bitsRes64bits(op2) != op2[0] * op2[1]){
+
+        if (MpyEntierNonSigneOp32bitsRes64bits(op1) != (unsigned long long)op1[0] * op1[1]){
             printf("Failed:\tMpyEntierNonSigneOp32bitsRes64bits\n");
-            printf("%d * %d != %d\n", op1[0], op1[1], MpyEntierNonSigneOp32bitsRes64bits(op2));
+            printf("%d * %d != %d\n", op1[0], op1[1], MpyEntierNonSigneOp32bitsRes64bits(op1));
             return false;
         }
 
