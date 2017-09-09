@@ -4,6 +4,9 @@
 	.def _AddEntierNonSigne32bits
 	.def _AddEntierSigne32bits
 	;.def _AddFractionnaire32bits_Q7.24_Q15.16
+	.def _SubEntierNonSigne32bits
+	.def _SubEntierSigne32
+	.def _SubFlottant64bits
 	.data
 
 
@@ -45,29 +48,43 @@ _AddEntierSigne32bits
     ;.asmfunc
 
 
-
+;    B B3
+;    NOP 5
     ;.endasmfunc
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _SubEntierNonSigne32bits
-	.asmfunc
+    .asmfunc
+	LDW *+A4[1], A3
+	LDW *A4, B4
+	NOP 4
 
-	LDW *+A4[1],A3
-    LDW *+A4[0],B4
-    NOP 4
+	SUBU .L1 A3,B4,A5:A4
 
-;	SUB A3, B4, B10:B11
-
-
-	B B3
+    B B3
     NOP 5
-
     .endasmfunc
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+_SubEntierSigne32
+    .asmfunc
 
+    B B3
+    NOP 5
+    .endasmfunc
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_SubFlottant64bits
+    .asmfunc
+
+    B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 

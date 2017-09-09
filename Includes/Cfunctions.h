@@ -6,6 +6,9 @@
 
 // Static variables needed for tests purposes and according to specifications
 static int Liste[3] = {0};
+static unsigned short TabShortNoS[2] = {0};
+static short TabShortS[2] = {0};
+
 static int dataType = 0;
 static int dataFormat = 0;
 static int op = 0;
