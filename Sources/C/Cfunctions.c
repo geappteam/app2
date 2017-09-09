@@ -41,30 +41,79 @@ bool ObtenirOperation(int *Liste){
 }
 
 bool AnalyserListe(int *Liste, unsigned short *TabShortNoS, short *TabShortS){
-    int choix = ConvertirListe(Liste);
-    switch (Liste[2]){
+    if(Liste !=NULL)
+    {
+        int choix = ConvertirListe(Liste);
 
-        case Addition :
-            switch (choix){
-                case  UnsignedInt:
+        if(choix != NULL)
+        {
+            switch (Liste[2]){
+
+                case Addition :
+                    switch (choix){
+                        case  UnsignedInt_32bits:
+
+                            break;
+                        case  SignedInt_32bits:
+
+                            break;
+                        case  Fractional_32bits:
+
+                            break;
+                    }
+                    break;
+                case Subtraction :
+                    switch (choix){
+                        case  UnsignedInt_32bits:
+
+                            break;
+                        case  SignedInt_32bits:
+
+                            break;
+                        case  Floating_64bits:
+
+                            break;
+                    }
+                    break;
+                case Multiplication :
+                    switch (choix){
+                        case  UnsignedInt_32bits:
+
+                            break;
+                        case  SignedInt_32bits:
+
+                            break;
+                        case  Fractional_32bits:
+
+                            break;
+                        case  Floating_64bits:
+
+                            break;
+                    }
+                    break;
+                case Division :
+                    switch (choix){
+        //            case  SignedInt_32bits:    //TODO: Implement in Cunctions.h the two dataTypeNames and replace here
+        //
+        //                break;
+        //            case  Fractional_32bits:
+        //
+        //                break;
+                    case  Floating_32bits:
+
+                        break;
+                    }
+                    break;
+                case Encrypt :
+                    switch (choix){
+                        case  SignedInt_32bits:
+
+                            break;
+                    }
                     break;
             }
-            break;
-        case Subtraction :
-
-            break;
-        case Multiplication :
-
-            break;
-        case Division :
-
-            break;
-        case Encrypt :
-
-            break;
-
+        }
     }
-
 
     return false;
 }
