@@ -57,7 +57,7 @@ _SubEntierNonSigne32bits
     LDW *+A4[0],B4
     NOP 4
 
-	SUB A3, B4, B10:B11
+;	SUB A3, B4, B10:B11
 
 
 	B B3

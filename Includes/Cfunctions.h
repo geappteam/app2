@@ -4,10 +4,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+// Static variables needed for tests purposes and according to specifications
 static int Liste[3] = {0};
 static int dataType = 0;
 static int dataFormat = 0;
 static int op = 0;
+
+//Error flag
+static bool error = false;
 
 enum operation {
     Addition = 1,
@@ -18,11 +22,13 @@ enum operation {
 };
 
 enum dataTypeName {
-    UnsignedInt = 12,
-    SignedInt = 22,
-    Fractional = 32,
-    Floating   = 44
-    //...
+    UnsignedInt_32bits = 12,
+//    UnsignedInt_32bits = 1Y,  //TODO: 'Y' must be replaced by a real number, then remove comments
+//    UnsignedInt_32bits = 1Y,
+    SignedInt_32bits = 22,
+    Fractional_32bits = 32,
+    Floating_32bits = 42,
+    Floating_64bits   = 44
 };
 
 bool ObtenirType(int *Liste);
@@ -37,7 +43,7 @@ int ConvertirListe(int *Liste);
 
 bool ChoisirOperandesXXX(int *Tab);
 
-// Optionnel
+// Optionnal
 //bool printResult();
 
 #endif //_CFUNCTIONS_H
