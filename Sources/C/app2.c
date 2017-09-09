@@ -1,16 +1,16 @@
 #include <stdbool.h>
 #include "test_asm.h"
 
-unsigned long long  compiled(unsigned int *TabInt){
-    return *TabInt * *(TabInt+1);
+unsigned long long  compiled(unsigned long long in){
+    return in<<16;
 }
 
 main()
 {
-    unsigned int args[] = {55, 55};
+    //  unsigned int args[] = {55, 55};
 
     test();
 
-    unsigned long long val = compiled(args);
+    unsigned long long val = compiled(0xFFFF);
     //printf("%d\n", val);
 }
