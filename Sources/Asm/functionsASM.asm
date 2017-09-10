@@ -66,7 +66,7 @@ _MpyEntierNonSigneOp32bitsRes64bits
 
 	NOP 4 	;LDW needs 4 delay slots
 
-	; La multiplication doit être décomposée en 4 opérations
+	; La multiplication doit Ãªtre dÃ©composÃ©e en 4 opÃ©rations
 
 	; MSB * LSB -> A0
 	MPYHLU	.M1X A5, B5, A0
@@ -152,6 +152,12 @@ _SubEntierNonSigne32bits
 
 _SubEntierSigne32
     .asmfunc
+	
+    LDW *+A4[1],A3
+    LDW *+A4[0],B4
+    NOP 4
+
+    SSUB A3, B4, B6
 
     B B3
     NOP 5
