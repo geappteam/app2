@@ -6,7 +6,7 @@
 	.def _AddEntierSigne32bits
 	.def _AddFractionnaire32bits_Q7_24_Q15_16
 	.def _MpyEntierNonSigneOp32bitsRes64bits
-	.def _MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16
+	.def _MpyEntierSigneOp32bitsRes64bits
 	.def _SubEntierNonSigne32bits
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
@@ -132,14 +132,14 @@ _MpyEntierNonSigneOp32bitsRes64bits
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-_MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16
+_MpyEntierSigneOp32bitsRes64bits
 	.asmfunc
 
 	LDW *A4, A0
 	LDW *+A4[1], B0
 	NOP 4
 
-	MPYID A0, B0, A5:A4 ; Multipication -> Q23.40
+	MPYID A0, B0, A5:A4
 	NOP 9
 
 	B B3

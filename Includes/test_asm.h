@@ -13,6 +13,8 @@
 #include <stdbool.h>
 #include "functionsASM.h"
 #include <math.h>
+#include <limits.h>
+#include <float.h>
 
 // Function definitions
 bool test();
