@@ -17,10 +17,10 @@ double AddEntierSigne32bits( int *TabIntS);
 
 // Substraction
 double SubEntierSigne32 (int *TabIntNoS);
-double SubFlottant64bits(float *TabXXX);
+double SubFlottant64bits(double *TabXXX);
 long SubEntierNonSigne32bits(unsigned int *TabIntNoS);
 
 // Multiplication
 unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
-
+double MpyFlottant64bits(double *TabXXX);
 #endif /* INCLUDES_FUNCTIONSASM_H_ */

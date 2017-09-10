@@ -9,6 +9,7 @@
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
 	.def _MpyEntierNonSigneOp32bitsRes64bits
+	.def _MpyFlottant64bits
 
 	.data
 
@@ -55,6 +56,7 @@ _AddEntierSigne32bits
     NOP 5
     .endasmfunc
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _MpyEntierNonSigneOp32bitsRes64bits
 	.asmfunc
@@ -150,6 +152,15 @@ _SubEntierSigne32
 _SubFlottant64bits
     .asmfunc
 
+	LDDW *+A4[0],B1:B0
+	LDDW *+A4[1],A3:A2
+
+	NOP 4
+
+	SUBDP B1:B0,A3:A2,A5:A4
+
+
+
     B B3
     NOP 5
     .endasmfunc
@@ -157,5 +168,21 @@ _SubFlottant64bits
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+_MpyFlottant64bits
+    .asmfunc
+
+	LDDW *+A4[0],B1:B0
+	LDDW *+A4[1],A3:A2
+
+	NOP 4
+
+	MPYDP B1:B0,A3:A2,A5:A4
+	NOP 9
+
+
+
+    B B3
+    NOP 5
+    .endasmfunc
 
 
