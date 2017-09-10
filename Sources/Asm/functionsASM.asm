@@ -5,10 +5,11 @@
 	.def _AddEntierNonSigne32bits
 	.def _AddEntierSigne32bits
 	.def _AddFractionnaire32bits_Q7_24_Q15_16
+	.def _MpyEntierNonSigneOp32bitsRes64bits
+	.def _MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16
 	.def _SubEntierNonSigne32bits
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
-	.def _MpyEntierNonSigneOp32bitsRes64bits
 
 	.data
 
@@ -16,6 +17,7 @@
 	.text
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 _AddEntierNonSigne32bits
     .asmfunc
 
@@ -73,7 +75,7 @@ _AddFractionnaire32bits_Q7_24_Q15_16
     NOP 5
     .endasmfunc
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _MpyEntierNonSigneOp32bitsRes64bits
 	.asmfunc
@@ -83,7 +85,7 @@ _MpyEntierNonSigneOp32bitsRes64bits
 
 	NOP 4 	;LDW needs 4 delay slots
 
-	; La multiplication doit être décomposée en 4 opérations
+	; La multiplication doit Ãªtre dÃ©composÃ©e en 4 opÃ©rations
 
 	; MSB * LSB -> A0
 	MPYHLU	.M1X A5, B5, A0
@@ -125,8 +127,23 @@ _MpyEntierNonSigneOp32bitsRes64bits
 	NOP 5
     .endasmfunc
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+_MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16
+	.asmfunc
+
+	LDW *A4, A0
+	LDW *+A4[1], B0
+	NOP 4
+
+	MPYID A0, B0, A5:A4 ; Multipication -> Q23.40
+	NOP 9
+
+	B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _SubEntierNonSigne32bits
     .asmfunc
@@ -144,6 +161,12 @@ _SubEntierNonSigne32bits
 
 _SubEntierSigne32
     .asmfunc
+	
+    LDW *+A4[1],A3
+    LDW *+A4[0],B4
+    NOP 4
+
+    SSUB A3, B4, B6
 
     B B3
     NOP 5
@@ -159,7 +182,3 @@ _SubFlottant64bits
     .endasmfunc
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-

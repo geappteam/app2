@@ -22,6 +22,7 @@ double SubFlottant64bits(float *TabXXX);
 long SubEntierNonSigne32bits(unsigned int *TabIntNoS);
 
 // Multiplication
-unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
+unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabIntNoS);
+long long MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(int *TabInt); // return value on Q23.40
 
 #endif /* INCLUDES_FUNCTIONSASM_H_ */
