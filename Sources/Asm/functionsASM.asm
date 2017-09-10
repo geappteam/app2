@@ -11,6 +11,7 @@
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
 	.def _MpyFlottant64bits
+	.def _DivIncrementation
 
 
 	.data
@@ -210,3 +211,24 @@ _MpyFlottant64bits
     B B3
     NOP 5
     .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_DivIncrementation
+    .asmfunc
+
+    LDW *+A4[1],A3
+    LDW *+A4[0],B4
+
+	NOP 4
+	SUBU A3, B4, B7:B6
+	NOP 9
+
+
+
+    B B3
+    NOP 5
+    .endasmfunc
+
+
+
