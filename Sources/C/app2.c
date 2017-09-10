@@ -6,7 +6,7 @@
 main()
 {
     // Suite de test des fonctions assembleur
-    //test();
+    test();
 
     //Temporarily static variables instead of inputs from user
     //dataType = 1;
@@ -32,7 +32,6 @@ main()
     //double param3[] = { 3.5,13.5 };
     double param4[] = { 0x4021333333333333,0xC004000000000000 };
     //double param4[] = {3500000000000000000,4000000000000000000};
-
 
 
     //double result = AddEntierNonSigne32bits(param);

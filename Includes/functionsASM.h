@@ -13,7 +13,8 @@
 
 // Addition
 double AddEntierNonSigne32bits(unsigned int *TabIntNoS);
-double AddEntierSigne32bits( int *TabIntS);
+double AddEntierSigne32bits(int *TabIntS);
+int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
 
 // Substraction
 double SubEntierSigne32 (int *TabIntNoS);
@@ -21,6 +22,8 @@ double SubFlottant64bits(double *TabXXX);
 long SubEntierNonSigne32bits(unsigned int *TabIntNoS);
 
 // Multiplication
-unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
+unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabIntNoS);
 double MpyFlottant64bits(double *TabXXX);
+long long MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(int *TabInt); // return value on Q23.40
+
 #endif /* INCLUDES_FUNCTIONSASM_H_ */
