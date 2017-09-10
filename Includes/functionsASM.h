@@ -13,10 +13,11 @@
 
 // Addition
 double AddEntierNonSigne32bits(unsigned int *TabIntNoS);
-double AddEntierSigne32bits( int *TabIntS);
+double AddEntierSigne32bits(int *TabIntS);
+int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
 
 // Substraction
-double SubEntierSigne32 (int *TabIntNoS);
+double SubEntierSigne32(int *TabIntNoS);
 double SubFlottant64bits(float *TabXXX);
 long SubEntierNonSigne32bits(unsigned int *TabIntNoS);
 

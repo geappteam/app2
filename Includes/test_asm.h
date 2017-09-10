@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "functionsASM.h"
+#include <math.h>
 
 // Function definitions
 bool test();

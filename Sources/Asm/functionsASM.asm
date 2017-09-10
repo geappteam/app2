@@ -4,7 +4,7 @@
 
 	.def _AddEntierNonSigne32bits
 	.def _AddEntierSigne32bits
-	;.def _AddFractionnaire32bits_Q7.24_Q15.16
+	.def _AddFractionnaire32bits_Q7_24_Q15_16
 	.def _SubEntierNonSigne32bits
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
@@ -15,6 +15,7 @@
 
 	.text
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 _AddEntierNonSigne32bits
     .asmfunc
 
@@ -54,7 +55,25 @@ _AddEntierSigne32bits
     B B3
     NOP 5
     .endasmfunc
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+_AddFractionnaire32bits_Q7_24_Q15_16
+    .asmfunc
+
+    LDW *+A4[1],A3 ; Q15.16
+    LDW *+A4[0],B4 ; Q7.24
+    NOP 4
+
+	ADDK	.S2	128,B4
+	SHR .S1	B4,8,A4
+
+	SADD .L1 A4,A3,A4
+
+    B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _MpyEntierNonSigneOp32bitsRes64bits
 	.asmfunc
@@ -106,17 +125,8 @@ _MpyEntierNonSigneOp32bitsRes64bits
 	NOP 5
     .endasmfunc
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;_AddFractionnaire32bits_Q7.24_Q15.16
-    ;.asmfunc
-
-
-;    B B3
-;    NOP 5
-    ;.endasmfunc
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _SubEntierNonSigne32bits
     .asmfunc
