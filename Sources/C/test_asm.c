@@ -13,6 +13,7 @@
 bool test(){
 
     // Testing
+
     // unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
     {
         unsigned int op1[] = { 50, 50 };
@@ -31,6 +32,27 @@ bool test(){
         }
 
         printf("Passed:\tMpyEntierNonSigneOp32bitsRes64bits\n");
+    }
+
+    // long long MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(int *TabInt);
+    {
+        int asmOper[2];
+        double operand1 = -4.125;
+        double operand2 = 655.25;
+
+        asmOper[0] = (int)(operand1*16777216.0); // Q7.24
+        asmOper[1] = (int)(operand2*65536.0);   // Q15.16
+
+        long long result = MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(asmOper);
+        double parsedRes = (double)(result / 1099511627776.0);
+
+        if (parsedRes != operand1*operand2){
+            printf("Failed:\tMpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16\n");
+            printf("%f * %f != %f\n", operand1, operand2, parsedRes);
+            return false;
+        }
+
+        printf("Passed:\tMpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16\n");
     }
 
     // Test Passed
