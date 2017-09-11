@@ -6,13 +6,15 @@
 	.def _AddEntierSigne32bits
 	.def _AddFractionnaire32bits_Q7_24_Q15_16
 	.def _MpyEntierNonSigneOp32bitsRes64bits
-	.def _MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16
+	.def _MpyEntierSigneOp32bitsRes64bits
 	.def _SubEntierNonSigne32bits
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
 	.def _DivIncrementation
 	.def _DivSubc
 	.def _DivFlottant32bits
+	.def _MpyFlottant64bits
+
 
 	.data
 
@@ -132,14 +134,14 @@ _MpyEntierNonSigneOp32bitsRes64bits
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-_MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16
+_MpyEntierSigneOp32bitsRes64bits
 	.asmfunc
 
 	LDW *A4, A0
 	LDW *+A4[1], B0
 	NOP 4
 
-	MPYID A0, B0, A5:A4 ; Multipication -> Q23.40
+	MPYID A0, B0, A5:A4
 	NOP 9
 
 	B B3
@@ -179,6 +181,15 @@ _SubEntierSigne32
 
 _SubFlottant64bits
     .asmfunc
+
+	LDDW *+A4[0],B1:B0
+	LDDW *+A4[1],A3:A2
+
+	NOP 4
+
+	SUBDP B1:B0,A3:A2,A5:A4
+
+
 
     B B3
     NOP 5
@@ -226,6 +237,35 @@ CSL:
 
 	;[!A4] B CSL
 	[!A1] B CSL
+
+_MpyFlottant64bits
+    .asmfunc
+
+	LDDW *+A4[0],B1:B0
+	LDDW *+A4[1],A3:A2
+
+	NOP 4
+
+	MPYDP B1:B0,A3:A2,A5:A4
+	NOP 9
+
+
+
+    B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_DivIncrementation
+    .asmfunc
+
+    LDW *+A4[1],A3
+    LDW *+A4[0],B4
+
+	NOP 4
+	SUBU A3, B4, B7:B6
+	NOP 9
 
     B B3
     NOP 5

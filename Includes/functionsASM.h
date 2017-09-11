@@ -17,13 +17,21 @@ double AddEntierSigne32bits(int *TabIntS);
 int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
 
 // Substraction
-double SubEntierSigne32(int *TabIntNoS);
-double SubFlottant64bits(float *TabXXX);
+double SubEntierSigne32 (int *TabIntNoS);
+double SubFlottant64bits(double *TabXXX);
 long SubEntierNonSigne32bits(unsigned int *TabIntNoS);
 
 // Multiplication
 unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabIntNoS);
-long long MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(int *TabInt); // return value on Q23.40
+double MpyFlottant64bits(double *TabXXX);
+long long MpyEntierSigneOp32bitsRes64bits(int *TabInt);
+
+// long long MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(int *TabInt);
+// return value on Q23.40
+#define MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16 MpyEntierSigneOp32bitsRes64bits
+
+
+unsigned int DivIncrementation (int *TabInt)
 
 // Division (ON PROGRESS : MrParris)
 int DivSubc(unsigned int *TabIntNoS); //TODO: Verify the return type value and other types concerned

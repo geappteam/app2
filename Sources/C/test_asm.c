@@ -14,25 +14,27 @@ bool test(){
 
     // Testing
 
-    // unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
+    // int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
+    /*
     {
-        unsigned int op1[] = { 50, 50 };
-        unsigned int op2[] = {0xFFFFFFFF, 0xFFFFFFFF};
-
-        //Test AddFractionnaire32bits_Q7_24_Q15_16
-        int nbQ7_24 = 1000;
+        int nbQ7_24 = 127;
         int nbQ15_16 = 32768;
         int TabIntS[2];
         TabIntS[0] = nbQ7_24/pow(2,-24);
         TabIntS[1] = nbQ15_16/pow(2,-16);
-        int resultQ15_16 = AddFractionnaire32bits_Q7_24_Q15_16(TabIntS);
-        int result = resultQ15_16*pow(2,-16);
-        if (AddFractionnaire32bits_Q7_24_Q15_16(TabIntS) != (TabIntS[0] + TabIntS[1])){
-                    printf("Failed:\tMpyEntierNonSigneOp32bitsRes64bits\n");
-                    printf("%d * %d != %d\n", op2[0], op2[1], MpyEntierNonSigneOp32bitsRes64bits(op2));
-                    return false;
-                }
-        //////////////////////////////////////////////////////////////////////////////////
+        if (AddFractionnaire32bits_Q7_24_Q15_16(TabIntS)*pow(2,-16) != (nbQ7_24 + nbQ15_16)){
+            printf("Failed:\tAddFractionnaire32bits_Q7_24_Q15_16\n");
+            printf("%d + %d != %d (%d)\n", nbQ7_24, nbQ15_16, AddFractionnaire32bits_Q7_24_Q15_16(TabIntS)*pow(2,-16),nbQ7_24+nbQ15_16);
+            return false;
+        }
+    }
+    */
+
+
+    // unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
+    {
+        unsigned int op1[] = { 50, 50 };
+        unsigned int op2[] = {0xFFFFFFFF, 0xFFFFFFFF};
 
         if (MpyEntierNonSigneOp32bitsRes64bits(op2) != (unsigned long long)op2[0] * op2[1]){
             printf("Failed:\tMpyEntierNonSigneOp32bitsRes64bits\n");
@@ -86,6 +88,35 @@ bool test(){
 
         printf("Passed:\tDivSubc\n");
     }
+
+    // long long MpyEntierSigneOp32bitsRes64bits(int *TabInt);
+    {
+        int asmOper[]={0,0,
+                       1,1,
+                       INT_MAX,INT_MAX,
+                       INT_MIN,INT_MIN,
+                       0,INT_MAX,
+                       INT_MIN,1
+        };
+
+        int *Iter = asmOper;
+
+        char i;
+        for (i = 0; i < 11; ++i){
+            long long result = MpyEntierSigneOp32bitsRes64bits(Iter);
+
+            if (result != ((long long)*Iter)*((long long)*(Iter+1))){
+                printf("Failed:\tMpyEntierSigneOp32bitsRes64bits\n");
+                printf("%d * %d != %d (%d)\n", Iter[i], Iter[i+1], result, Iter[i]*Iter[i+1]);
+                return false;
+            }
+
+            ++Iter;
+        }
+
+        printf("Passed:\tMpyEntierSigneOp32bitsRes64bits\n");
+    }
+
     // Test Passed
     printf("PASSED:\tALL TESTS\n");
     return true;
