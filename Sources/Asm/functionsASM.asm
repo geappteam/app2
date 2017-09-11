@@ -202,8 +202,8 @@ _DivSubc
     .asmfunc
 
 	; Loading the numbers from the array in the memory.
-    LDW *+A4[0],A1 ;Num
-    LDW *+A4[1],A2 ;Den
+    LDW *+A4[1],A1 ;Num
+    LDW *+A4[0],A2 ;Den
     NOP 4
 
 	; Defining the value of the bit used (MSB), to search the number of zeroes on the left side of MSB.
@@ -220,14 +220,16 @@ _DivSubc
 	SHL A2, A6, A2
 
 	; Placing value of A1 (Num) in A5 because A1 will be use for conditional loop.
-	MV A1, A5
+	MV A1, A4
 
 	; Iterator set to 0 before conditional loop.
 	MVK 0, A0
 
-CSL:
+	CMPGTU A0, A6, A1
+
+ConditionalSubLoop:
 	; Performing substraction for division.
-	SUBC A5, A2, A5
+	SUBC A4, A2, A4
 
 	; Incrementing iterator.
 	ADD A0, 1, A0
@@ -236,7 +238,7 @@ CSL:
 	CMPGTU A0, A6, A1
 
 	; Stops loop if number of iterations is equal to the number of shift done to denominator.
-	[!A1] B CSL
+	[!A1] B ConditionalSubLoop
 	NOP 5
 
 	B B3
