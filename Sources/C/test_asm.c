@@ -101,6 +101,34 @@ bool test(){
         printf("Passed:\tMpyEntierSigneOp32bitsRes64bits\n");
     }
 
+    // float DivFlottant32bits(float *TabFloat);
+    {
+        float asmOper[]={1.0f, 1.0f,
+                         FLT_MAX, FLT_MAX,
+                         FLT_MIN, FLT_MIN,
+                         FLT_MAX, 1.0f,
+                         1.0f, FLT_MIN,
+                         1.0f, 0.0f,
+                         0.0f, 2.0f,
+                         4.0f, 0.0f,
+                         10.0f,55.333f};
+
+        float *iter = asmOper;
+        char i = 0;
+        while (i < 17){
+            float result = DivFlottant32bits(iter);
+            if (result != iter[0]/iter[1]){
+                if (! (iter[1]==0 && result==0)){
+                    printf("Failed:\tDivFlottant32bits\n");
+                    printf("%e / %e != %e (%e)\n", iter[0], iter[1], result, iter[0]/iter[1]);
+                }
+            }
+            ++i;
+            ++iter;
+        }
+        printf("Passed:\tDivFlottant32bits\n");
+    }
+
     // Test Passed
     printf("PASSED:\tALL TESTS\n");
     return true;

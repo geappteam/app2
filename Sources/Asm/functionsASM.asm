@@ -11,6 +11,7 @@
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
 	.def _MpyFlottant64bits
+	.def _DivFlottant32bits
 
 
 	.data
@@ -210,3 +211,53 @@ _MpyFlottant64bits
     B B3
     NOP 5
     .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_DivFlottant32bits
+	.asmfunc
+
+	LDW *+A4[1], B1	; Divisor
+	LDW *A4, A5
+	NOP 4
+
+	; Check if the divider is 0
+	[!B1] B termDiv
+	ZERO A4
+	NOP 4
+
+	; Check for same values
+	CMPEQSP B1, A5, B2
+	[B2] B termDiv
+	ZERO A4
+	MVKH 0x3f800000, A4
+	NOP 3
+
+	; Estimating the inverse divider
+	RCPSP B1, B5
+
+	; Increasing the accuracy with Newton-Raphson
+	MPYSP B1, B5, B6
+	ZERO B0
+	MVKH 0x40000000, B0
+	NOP
+	SUBSP B0, B6, B7
+	NOP 3
+	MPYSP B5, B7, B5
+	NOP 3
+	; Another round for full accuracy
+	MPYSP B1, B5, B6
+	NOP 3
+	SUBSP B0, B6, B7
+	NOP 3
+	MPYSP B5, B7, B5
+	NOP 3
+
+	; Performing the multiplication by 1/divider
+	MPYSP B5, A5, A4
+	NOP 3
+
+termDiv:
+	B B3
+    NOP 5
+	.endasmfunc

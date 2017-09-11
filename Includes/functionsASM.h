@@ -30,4 +30,7 @@ long long MpyEntierSigneOp32bitsRes64bits(int *TabInt);
 // return value on Q23.40
 #define MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16 MpyEntierSigneOp32bitsRes64bits
 
+// Division
+float DivFlottant32bits(float *TabFloat);
+
 #endif /* INCLUDES_FUNCTIONSASM_H_ */
