@@ -4,10 +4,10 @@
 #include "functionsASM.h"
 
 main()
-{
+    {
     // Suite de test des fonctions assembleur
     //devTest();
-    validationTest();
+    //validationTest();
 
     //Temporarily static variables instead of inputs from user
     //dataType = 1;
@@ -33,7 +33,7 @@ main()
     //double param3[] = { 2.01,8.12 };
     //double param4[] = { 0x4021333333333333,0xC004000000000000 };
     //double param4[] = {3E+300,4E+300};
-    unsigned int param5[] = { 6, 12};
+    unsigned int param5[] = { 1, 25};
 
     //double result = AddEntierNonSigne32bits(param);
     //double result1 = AddEntierSigne32bits(param1);

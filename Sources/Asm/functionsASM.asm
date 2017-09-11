@@ -56,7 +56,7 @@ _AddEntierSigne32bits
 
     NOP 1
 
-    ;MVC CSR, B6
+	MVC CSR, B6
 
 
 
@@ -310,11 +310,27 @@ _DivIncrementation
     .asmfunc
 
     LDW *+A4[1],A3
-    LDW *+A4[0],B4
+    NOP 5
+    LDW *+A4[0],B2
+    NOP 5
+	MVK 0x00000000, A2
+	NOP 5
+	MVK 0x00000000, A1
+	NOP 5
 
-	NOP 4
-	SUBU A3, B4, B7:B6
-	NOP 9
+
+LOOP:
+
+	SUB A3, B2, A3
+	NOP 6
+	ADD 1,A2,A2
+	NOP 5
+	CMPGT -1,A3,A1
+	NOP 5
+	[!A1] B LOOP
+	NOP 5
+	ADD -2,A2,A2
+
 
     B B3
     NOP 5
