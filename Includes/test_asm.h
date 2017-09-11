@@ -9,6 +9,7 @@
 #ifndef SOURCES_C_TEST_ASM_H_
 #define SOURCES_C_TEST_ASM_H_
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>

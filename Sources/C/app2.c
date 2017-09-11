@@ -6,8 +6,8 @@
 main()
 {
     // Suite de test des fonctions assembleur
-    //devTest();
-    validationTest();
+    devTest();
+    //validationTest();
 
     //Temporarily static variables instead of inputs from user
     //dataType = 1;

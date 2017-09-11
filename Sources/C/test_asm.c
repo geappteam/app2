@@ -137,12 +137,43 @@ bool devTest(){
                 if (! (iter[1]==0 && result==0)){
                     printf("Failed:\tDivFlottant32bits\n");
                     printf("%e / %e != %e (%e)\n", iter[0], iter[1], result, iter[0]/iter[1]);
+                    return false;
                 }
             }
             ++i;
             ++iter;
         }
         printf("Passed:\tDivFlottant32bits\n");
+    }
+
+    // void EncrypterDonnees (unsigned int *TabIntNoS);
+    {
+        //unsigned int testGroup[]={1,2,3,4,5,6,7,8};
+        // Using a heap allocation to align memory
+        unsigned int * testGroup;
+        size_t blockSize = sizeof(unsigned int)*8;  // Application demands 8 * 32 bits
+        testGroup= (unsigned int*) memalign(blockSize,blockSize);
+
+        int i;
+        for (i = 0; i < 8; ++i){
+            testGroup[i] = i+1;
+        }
+
+        EncrypterDonnees(testGroup);
+
+        for (i = 0; i < 8; ++i){
+            unsigned int eval = (i+1)^0xFFFFFFFF;
+            if(testGroup[i] != eval)
+            {
+                printf("Failed:\tEncrypterDonnees\n");
+                printf("%#010X XOR 0xFFFFFFFF != %#010X\n", i+1, testGroup[i]);
+                return false;
+            }
+        }
+
+        free(testGroup);
+
+        printf("Passed:\tEncrypterDonnees\n");
     }
 
     // Test Passed
