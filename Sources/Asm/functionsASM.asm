@@ -8,7 +8,7 @@
 	.def _MpyEntierNonSigneOp32bitsRes64bits
 	.def _MpyEntierSigneOp32bitsRes64bits
 	.def _SubEntierNonSigne32bits
-	.def _SubEntierSigne32
+	.def _SubEntierSigne32bits
 	.def _SubFlottant64bits
 	.def _DivIncrementation
 	.def _DivSubc
@@ -165,14 +165,14 @@ _SubEntierNonSigne32bits
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-_SubEntierSigne32
+_SubEntierSigne32bits
     .asmfunc
 	
     LDW *+A4[1],A3
     LDW *+A4[0],B4
     NOP 4
 
-    SSUB A3, B4, B6
+    SSUB B4, A3, A4
 
     B B3
     NOP 5
