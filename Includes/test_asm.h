@@ -17,6 +17,7 @@
 #include "functionsASM.h"
 
 // Function definitions
-bool test();
+bool devTest();
+void validationTest();
 
 #endif /* SOURCES_C_TEST_ASM_H_ */

@@ -9,8 +9,9 @@
 
 /**
  * Returns true if every test passes
+ * This test battery is used testing during development
  */
-bool test(){
+bool devTest(){
 
     // Testing
 
@@ -148,3 +149,57 @@ bool test(){
     printf("PASSED:\tALL TESTS\n");
     return true;
 }
+
+/**
+ * This procedure prints the results demanded in
+ * http://www.gel.usherbrooke.ca/s5elec/a17/doc/app2/file/Validation_APP2_A17.pdf
+ */
+void validationTest(){
+
+    printf("\f\nValidation APP2 S5elec H17\n");
+
+
+    // AddEntierSigne32bits ( 4 294 967 295, 1) -> output in hex: 0xXXXX
+    {
+        int Operandes[] = {0xFFFFFFFF, 1};
+        int Resultat = AddEntierSigne32bits(Operandes);
+        printf("\n\nAddEntierSigne32bits (Bonus):\n\n\t");
+        printf("%#010X + %d = %#010X\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+
+    // AddFractionnaire32bits_Q7.24_Q15.16 ( 14.25, 1) -> output in decimal: integer
+    {
+        int Operandes[] = {(int)(14.25*(1<<24)), (int)(1<<16)};
+        int Resultat = AddFractionnaire32bits_Q7_24_Q15_16(Operandes);
+        printf("\n\nAddFractionnaire32bits_Q7.24_Q15.16 (resultat Q15.16):\n\n\t");
+        printf("%.2f + %d = %d\n", ((double)Operandes[0])/(1<<24), Operandes[1]>>16, Resultat);
+    }
+
+    // SubEntierSigne32bits (1,2) -> unspecified format
+    {
+        int Operandes[] = {1, 2};
+        int Resultat = SubEntierSigne32bits(Operandes);
+        printf("\n\nSubEntierSigne32bits (Bonus):\n\n\t");
+        printf("%d - %d = %d\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // SubFlottant64bits ( 2.01 , 8.12 ) -> unspecified format
+    {
+        double Operandes[] = {2.01, 8.12};
+        double Resultat = SubFlottant64bits(Operandes);
+        printf("\n\nSubFlottant64bits:\n\n\t");
+        printf("%.2f - %.2f = %.2f\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // MpyEntierNonSigneOp32bitsRes64bits  ( 32 , 3221225472 ) -> hex
+    {
+        unsigned int Operandes[] = {32, 3221225472};
+        unsigned long long Resultat = MpyEntierNonSigneOp32bitsRes64bits(Operandes);
+        printf("\n\nMpyEntierNonSigneOp32bitsRes64bits:\n\n\t");
+        printf("%u * %u = %#018lX\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // TODO: finish adding all the required tests
+}
+
