@@ -55,7 +55,7 @@ _AddEntierSigne32bits
 
     NOP 1
 
-    ;MVC CSR, B6
+	MVC CSR, B6
 
 
 
@@ -200,34 +200,45 @@ _SubFlottant64bits
 _DivSubc
     .asmfunc
 
-    LDW *+A4[0],A1 ;Num
-    LDW *+A4[1],A2 ;Den
+	; Loading the numbers from the array in the memory.
+    LDW *+A4[1],A1 ;Num
+    LDW *+A4[0],A2 ;Den
     NOP 4
 
+	; Defining the value of the bit used (MSB), to search the number of zeroes on the left side of MSB.
 	MVK 1, A0
 
+	; Searching the number of zeroes on the left side of the MSB of the two numbers (num and den).
 	LMBD A0, A1, A3
 	LMBD A0, A2, A4
 
-	;SUBU A4, A3, A0
+	; Verifying the difference of the number of zeroes of the num and den numbers
 	SUBU A4, A3, A7:A6
 
-	;SHL A2, A0, A2
+	; Shifting on the left the denominator, for alignment purpose with numerator.
 	SHL A2, A6, A2
 
-	MV A1, A5
-	MVK 0, A3
+	; Placing value of A1 (Num) in A5 because A1 will be use for conditional loop.
+	MV A1, A4
 
-CSL:
-	;SUBC A1, A2, A1
-	SUBC A5, A2, A5
+	; Iterator set to 0 before conditional loop.
+	MVK 0, A0
 
-	ADD A3, 1, A3
-	;CMPGTU A3, A0, A4
-	CMPGTU A3, A6, A4
+	CMPGTU A0, A6, A1
 
-	;[!A4] B CSL
-	[!A1] B CSL
+ConditionalSubLoop:
+	; Performing substraction for division.
+	SUBC A4, A2, A4
+
+	; Incrementing iterator.
+	ADD A0, 1, A0
+
+	; Verifying if iterator at max wanted value.
+	CMPGTU A0, A6, A1
+
+	; Stops loop if number of iterations is equal to the number of shift done to denominator.
+	[!A1] B ConditionalSubLoop
+	NOP 5
 
 	B B3
     NOP 5
@@ -309,11 +320,27 @@ _DivIncrementation
     .asmfunc
 
     LDW *+A4[1],A3
-    LDW *+A4[0],B4
+    NOP 5
+    LDW *+A4[0],B2
+    NOP 5
+	MVK 0x00000000, A2
+	NOP 5
+	MVK 0x00000000, A1
+	NOP 5
 
-	NOP 4
-	SUBU A3, B4, B7:B6
-	NOP 9
+
+LOOP:
+
+	SUB A3, B2, A3
+	NOP 6
+	ADD 1,A2,A2
+	NOP 5
+	CMPGT -1,A3,A1
+	NOP 5
+	[!A1] B LOOP
+	NOP 5
+	ADD -2,A2,A2
+
 
     B B3
     NOP 5

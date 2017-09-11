@@ -146,6 +146,34 @@ bool devTest(){
         printf("Passed:\tDivFlottant32bits\n");
     }
 
+    //  unsigned int DivSubc(unsigned int *TabIntNoS);
+    {
+        unsigned int TabIntNoS[6] = {2,4,5,55,8,808};
+        unsigned int TabIntNoS1[2] = {2,4};
+        unsigned int TabIntNoS2[2] = {5,55};
+        unsigned int TabIntNoS3[2] = {8,808};
+        unsigned int result[3] = {0,0,0};
+        result[0] = DivSubc(TabIntNoS1);
+        result[1] = DivSubc(TabIntNoS2);
+        result[2] = DivSubc(TabIntNoS3);
+        int error = 0;
+        if (result[0] != (TabIntNoS[1]/TabIntNoS[0])){
+            if(result[1] != (TabIntNoS[3]/TabIntNoS[2])){
+                if(result[2] != (TabIntNoS[5]/TabIntNoS[4]))
+                        printf("Passed:\tDivSubc\n");
+                else
+                    error = 3;
+            }
+            else
+                error = 2;
+        }
+        else
+            error = 1;
+        printf("Failed:\tDivSubc\n");
+        printf("%u / %u != %u \n", TabIntNoS[error], TabIntNoS[error-1], result[error-1]);
+        printf("%u / %u = %u \n", TabIntNoS[error], TabIntNoS[error-1], (TabIntNoS[error]/TabIntNoS[error-1]));
+    }
+
     // void EncrypterDonnees (unsigned int *TabIntNoS);
     {
         //unsigned int testGroup[]={1,2,3,4,5,6,7,8};
@@ -229,6 +257,18 @@ void validationTest(){
         unsigned long long Resultat = MpyEntierNonSigneOp32bitsRes64bits(Operandes);
         printf("\n\nMpyEntierNonSigneOp32bitsRes64bits:\n\n\t");
         printf("%u * %u = %#018lX\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // DivSubc ( 16777215 , 1 ) and (11 , 3) -> output in decimal: unsigned integer
+    {
+        unsigned int Operandes1[] = { 1, 16777215 };
+        unsigned int Operandes2[] = { 3 , 11 };
+        unsigned int result1 = DivSubc(Operandes1);
+        unsigned int result2 = DivSubc(Operandes2);
+        printf("\n\nDivSubc TEST 1:\n\n\t");
+        printf("%u / %u = %u\n", Operandes1[0], Operandes1[1], result1);
+        printf("\n\nDivSubc TEST 2:\n\n\t");
+        printf("%u / %u = %u\n", Operandes2[0], Operandes2[1], result2);
     }
 
     // TODO: finish adding all the required tests
