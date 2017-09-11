@@ -15,7 +15,7 @@ bool test(){
     // Testing
 
     // int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
-    /*
+    // TODO: fix test procedure
     {
         int nbQ7_24 = 127;
         int nbQ15_16 = 32768;
@@ -28,7 +28,6 @@ bool test(){
             return false;
         }
     }
-    */
 
 
     // unsigned long long  MpyEntierNonSigneOp32bitsRes64bits(unsigned int *TabInt);
@@ -74,7 +73,7 @@ bool test(){
     }
 
     //  int DivSubc(unsigned int *TabIntNoS);
-    {
+    { //TODO:fix test procedure -> asm function was damaged on merge dca73666323845c060c280fcbc4d2da705ed8303
         unsigned int TabIntNoS[2];
         TabIntNoS[0] =1030; //NUM
         TabIntNoS[1] =10; //DEN
