@@ -71,6 +71,21 @@ bool test(){
         printf("Passed:\tMpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16\n");
     }
 
+    //  int DivSubc(unsigned int *TabIntNoS);
+    {
+        unsigned int TabIntNoS[2];
+        TabIntNoS[0] =1030; //NUM
+        TabIntNoS[1] =10; //DEN
+        int result = DivSubc(TabIntNoS);
+
+        if ((TabIntNoS[0]/TabIntNoS[1]) != result){
+            printf("Failed:\tDivSubc\n");
+            printf("%d / %d != %d\n", TabIntNoS[0], TabIntNoS[1], result);
+            return false;
+        }
+
+        printf("Passed:\tDivSubc\n");
+    }
     // Test Passed
     printf("PASSED:\tALL TESTS\n");
     return true;

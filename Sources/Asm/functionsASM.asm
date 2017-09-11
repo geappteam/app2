@@ -10,6 +10,9 @@
 	.def _SubEntierNonSigne32bits
 	.def _SubEntierSigne32
 	.def _SubFlottant64bits
+	.def _DivIncrementation
+	.def _DivSubc
+	.def _DivFlottant32bits
 
 	.data
 
@@ -182,3 +185,57 @@ _SubFlottant64bits
     .endasmfunc
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_DivIncrementation
+    .asmfunc
+
+    B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_DivSubc
+    .asmfunc
+
+    LDW *+A4[0],A1 ;Num
+    LDW *+A4[1],A2 ;Den
+    NOP 4
+
+	MVK 1, A0
+
+	LMBD A0, A1, A3
+	LMBD A0, A2, A4
+
+	;SUBU A4, A3, A0
+	SUBU A4, A3, A7:A6
+
+	;SHL A2, A0, A2
+	SHL A2, A6, A2
+
+	MV A1, A5
+	MVK 0, A3
+
+CSL:
+	;SUBC A1, A2, A1
+	SUBC A5, A2, A5
+
+	ADD A3, 1, A3
+	;CMPGTU A3, A0, A4
+	CMPGTU A3, A6, A4
+
+	;[!A4] B CSL
+	[!A1] B CSL
+
+    B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+_DivFlottant32bits
+    .asmfunc
+
+    B B3
+    NOP 5
+    .endasmfunc
