@@ -32,7 +32,7 @@ long long MpyEntierSigneOp32bitsRes64bits(int *TabInt);
 
 // Division
 float DivFlottant32bits(float *TabFloat);
-unsigned int DivIncrementation (int *TabInt)
+unsigned int DivIncrementation (unsigned int *TabInt);
 // Division (ON PROGRESS : MrParris)
 int DivSubc(unsigned int *TabIntNoS); //TODO: Verify the return type value and other types concerned
 

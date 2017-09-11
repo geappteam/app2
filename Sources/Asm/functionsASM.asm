@@ -14,7 +14,7 @@
 	.def _DivSubc
 	.def _DivFlottant32bits
 	.def _MpyFlottant64bits
-	.def _DivFlottant32bits
+
 
 
 	.data
@@ -198,15 +198,6 @@ _SubFlottant64bits
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-_DivIncrementation
-    .asmfunc
-
-    B B3
-    NOP 5
-    .endasmfunc
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 _DivSubc
     .asmfunc
 
@@ -238,6 +229,12 @@ CSL:
 
 	;[!A4] B CSL
 	[!A1] B CSL
+
+	B B3
+    NOP 5
+    .endasmfunc
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _MpyFlottant64bits
     .asmfunc

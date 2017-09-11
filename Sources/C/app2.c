@@ -5,9 +5,8 @@
 
 main()
 {
-
     // Suite de test des fonctions assembleur
-    //test();
+    test();
 
     //Temporarily static variables instead of inputs from user
     //dataType = 1;
@@ -40,7 +39,7 @@ main()
     //double result2 = SubEntierSigne32(param2);
     //double result3 = SubFlottant64bits(param3);
     //double result4 = MpyFlottant64bits(param4);
-    double result5 = DivIncrementation(param5);
+    unsigned int result5 = DivIncrementation(param5);
 
     return 0;
 }
