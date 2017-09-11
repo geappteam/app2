@@ -47,6 +47,8 @@ bool ChoisirOperandesFloat(float *TabFloat);
 
 bool ChoisirOperandesDouble(double *TabDouble);
 
-void printResult();
+bool ChoisirDonnees(int *TabDonnees);
+
+void printResult(unsigned short *TabShortNoS, short *TabShortS,  int *TabDonnees);
 
 #endif //_CFUNCTIONS_H

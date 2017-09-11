@@ -15,13 +15,14 @@ void process(){
         int Liste[3] = {0,0,0};
         unsigned short TabShortNoS[2] = {0,0};
         short TabShortS[2] = {0,0};
+        int TabDonnees[8] = {0,0,0,0,0,0,0,0};
 
         //Program process
         if( ObtenirType(Liste)      &&
             ObtenirFormat(Liste)    &&
             ObtenirOperation(Liste) &&
             AnalyserListe(Liste, TabShortNoS, TabShortS))
-            printResult();
+            printResult(TabShortNoS, TabShortS, TabDonnees);
         else
             printf("\n\n --- ERROR --- \n\n");
     }
@@ -81,62 +82,75 @@ bool AnalyserListe(int *Liste, unsigned short *TabShortNoS, short *TabShortS){
                 case Addition :
                     switch (choix){
                         case  UnsignedInt_32bits:
-
+                            //isSuccess = ChoisirOperandesIntNoS(TabShortNoS);
+                            //AddEntierNonSigne32bits();
                             break;
                         case  SignedInt_32bits:
-
+                            //isSuccess = ChoisirOperandesIntS(TabShortS);
+                            //AddEntierSigne32bits();
                             break;
                         case  Fractional_32bits:
-
+                            //isSuccess = ChoisirOperandesDouble(TabShortS);
+                            //AddFractionnaire32bits_Q7_24_Q15_16();
                             break;
                     }
                     break;
                 case Subtraction :
                     switch (choix){
                         case  UnsignedInt_32bits:
-
+                            //isSuccess = ChoisirOperandesIntNoS(TabShortNoS);
+                            //SubEntierNonSigne32bits();
                             break;
                         case  SignedInt_32bits:
-
+                            //isSuccess = ChoisirOperandesIntS(TabShortS);
+                            //SubEntierSigne32bits();
                             break;
                         case  Floating_64bits:
-
+                            //isSuccess = ChoisirOperandesFloat(TabShortNoS);
+                            //SubFlottant64bits();
                             break;
                     }
                     break;
                 case Multiplication :
                     switch (choix){
                         case  UnsignedInt_32bits:
-
+                            //isSuccess = ChoisirOperandesIntNoS(TabShortNoS);
+                            //MpyEntierNonSigneOp32bitsRes64bits();
                             break;
                         case  SignedInt_32bits:
-
+                            //isSuccess = ChoisirOperandesIntS(TabShortNoS);
+                            //MpyEntierSigneOp32bitsRes64bits();
                             break;
                         case  Fractional_32bits:
-
+                            //isSuccess = ChoisirOperandesDouble(TabShortNoS);
+                            //MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16();
                             break;
                         case  Floating_64bits:
-
+                            //isSuccess = ChoisirOperandesFloat(TabShortNoS);
+                            //MpyFlottant64bits();
                             break;
                     }
                     break;
                 case Division :
                     switch (choix){
         //            case  SignedInt_32bits:    //TODO: Implement in Cunctions.h the two dataTypeNames and replace here
-        //
+        //                isSuccess = ChoisirOperandesIntS(TabShortS);
+                          //DivSubc();
         //                break;
         //            case  Fractional_32bits:
-        //
+        //                isSuccess = ChoisirOperandesDouble(TabShortS);
         //                break;
                     case  Floating_32bits:
-
+                        //isSuccess = ChoisirOperandesFloat(TabShortNoS);
+                        //DivFlottant32bits();
                         break;
                     }
                     break;
                 case Encrypt :
                     switch (choix){
                         case  SignedInt_32bits:
-
+                            //isSuccess = ChoisirDonnees(TabShortNoS);
+                            //EncrypterDonnees(TabDonnees);
                             break;
                     }
                     break;
@@ -180,5 +194,9 @@ bool ChoisirOperandesDouble(double *TabDouble){
     return ERROR;
 }
 
-void printResult(){
+bool ChoisirDonnees(int *TabDonnees){
+    return ERROR;
+}
+
+void printResult(unsigned short *TabShortNoS, short *TabShortS,  int *TabDonnees){
 }

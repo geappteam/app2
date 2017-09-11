@@ -36,5 +36,7 @@ unsigned int DivIncrementation (unsigned int *TabInt);
 // Division (ON PROGRESS : MrParris)
 int DivSubc(unsigned int *TabIntNoS); //TODO: Verify the return type value and other types concerned
 
+// Encryption
+//EncrypterDonnees(int *TabDonnees);
 
 #endif /* INCLUDES_FUNCTIONSASM_H_ */
