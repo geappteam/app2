@@ -2,19 +2,12 @@
 #define _CFUNCTIONS_H
 
 #include <stdbool.h>
-#include <stdlib.h>
+#include <stdio.h>
 
-// Static variables needed for tests purposes and according to specifications
-static int Liste[3] = {0};
-static unsigned short TabShortNoS[2] = {0};
-static short TabShortS[2] = {0};
+#define NULL 0
 
-static int dataType = 0;
-static int dataFormat = 0;
-static int op = 0;
-
-//Error flag
-static bool error = false;
+#define ERROR 0
+#define SUCCESS 1
 
 enum operation {
     Addition = 1,
@@ -34,6 +27,8 @@ enum dataTypeName {
     Floating_64bits   = 44
 };
 
+void process();
+
 bool ObtenirType(int *Liste);
 
 bool ObtenirFormat(int *Liste);
@@ -44,9 +39,14 @@ bool AnalyserListe(int *Liste, unsigned short *TabShortNoS, short *TabShortS);
 
 int ConvertirListe(int *Liste);
 
-bool ChoisirOperandesXXX(int *Tab);
+bool ChoisirOperandesIntNoS(unsigned int *TabIntNoS);
 
-// Optionnal
-//bool printResult();
+bool ChoisirOperandesIntS(signed int *TabIntS);
+
+bool ChoisirOperandesFloat(float *TabFloat);
+
+bool ChoisirOperandesDouble(double *TabDouble);
+
+void printResult();
 
 #endif //_CFUNCTIONS_H
