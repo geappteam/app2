@@ -287,11 +287,23 @@ void ChoisirDonnees(int *TabDonnees){
 }
 
 bool EncrypterDonneesInC(int *TabDonnees){
-    unsigned int key = 0xFFFFFFFF;
 
-    int nbTours = 3; //According to the statement in the Guide étudiant
+    if(TabDonnees!=NULL){
+        unsigned int key = 0xFFFFFFFF;
 
-    return SUCCESS;
+        int nbTours = 3; //According to the statement "5" in the "Guide étudiant" for validation test
+        int i;
+        int j;
+
+        for(i = 0; i < nbTours; ++i){
+            for(j = 0; j < 8; ++j){
+                TabDonnees[j]^= key;
+            }
+        }
+        return SUCCESS;
+    }
+    else
+        return ERROR;
 }
 
 void ClearListe(){

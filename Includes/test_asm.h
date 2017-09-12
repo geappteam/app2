@@ -16,6 +16,7 @@
 #include <limits.h>
 #include <float.h>
 #include "functionsASM.h"
+#include "Cfunctions.h"
 
 // Function definitions
 bool devTest();

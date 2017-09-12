@@ -9,6 +9,14 @@
 
 #define NULL 0
 
+//BEGIN : ENCRYPTING TIME TEST'S VARIABLES
+// Arrays used to compare time of encryption
+int TabDonnees1[8] = {5,6,7,8,9,11,167,8888};
+
+#pragma DATA_ALIGN(TabDonnees2, 32)
+int TabDonnees2[8] = {5,6,7,8,9,11,167,8888};
+//END : ENCRYPTING TEST'S VARIABLES
+
 /**
  * Returns true if every test passes
  * This test battery is used testing during development
@@ -328,7 +336,31 @@ void validationTest(){
 
     // EncrypterDonnees (defini par le tuteur)
     {
-        printf("\n\nEncrypterDonnees: Aucune valeurs specifies\n");
+        int i;
+
+        //printf used to place breakpoint in order to check the difference in clock cylces of each function
+        printf("\n\nENCRYPTION IN C TEST : BEGIN\n");
+        bool noError = EncrypterDonneesInC(TabDonnees1);
+        printf("\n\nENCRYPTION IN C TEST : END\n");
+
+        if(noError)
+        {
+            for(i = 0; i < 8; ++i){
+                printf("\n%d\n",TabDonnees1[i]);
+            }
+        }
+
+        printf("\n\nENCRYPTION IN ASM TEST : BEGIN\n");
+        EncrypterDonnees(TabDonnees2);
+        printf("\n\nENCRYPTION IN C TEST : END\n");
+
+        for(i = 0; i < 8; ++i){
+            printf("\n%d\n",TabDonnees2[i]);
+        }
+
+        //printf("\n\nEncrypterDonnees: Aucune valeurs specifies\n");
     }
+
+
 }
 
