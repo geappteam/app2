@@ -192,8 +192,8 @@ _DivSubc
     .asmfunc
 
 	; Loading the numbers from the array in the memory.
-    LDW *+A4[1],A1 ;Num
-    LDW *+A4[0],A2 ;Den
+    LDW *+A4[0],A1 ;Num
+    LDW *+A4[1],A2 ;Den
     NOP 4
 
 	; Placing temporarily the numerator in an another register (A4).
@@ -248,6 +248,15 @@ ConditionalSubLoop:
 	; Stops loop if number of iterations is equal to the number of shift done to denominator.
 	[!A1] B ConditionalSubLoop
 	NOP 5
+
+	; Isolating the result
+	MVK 32, A9
+	SUB A9, A6, A10
+
+
+
+	SHL A4, A10, A4
+	SHRU A4, A10, A4
 
 	B B3
     NOP 5
