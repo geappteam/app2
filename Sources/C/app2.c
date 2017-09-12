@@ -2,8 +2,7 @@
 #include "test_asm.h"
 #include "functionsASM.h"
 
-main()
-{
+main(){
 //    //Tests used for development purposes
 //    devTest();
 //
@@ -14,4 +13,5 @@ main()
 //    process();
 
     return 0;
+
 }
