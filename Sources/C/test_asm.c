@@ -345,8 +345,9 @@ void validationTest(){
 
         if(noError)
         {
+            printf("\n\n");
             for(i = 0; i < 8; ++i){
-                printf("\n%d\n",TabDonnees1[i]);
+                printf("%d\t",TabDonnees1[i]);
             }
         }
 
@@ -354,10 +355,11 @@ void validationTest(){
         EncrypterDonnees(TabDonnees2);
         printf("\n\nENCRYPTION IN C TEST : END\n");
 
+        printf("\n\n");
         for(i = 0; i < 8; ++i){
-            printf("\n%d\n",TabDonnees2[i]);
+            printf("%d\t",TabDonnees2[i]);
         }
-
+        printf("\n");
         //printf("\n\nEncrypterDonnees: Aucune valeurs specifies\n");
     }
 

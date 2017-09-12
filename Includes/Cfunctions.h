@@ -36,7 +36,7 @@ bool ObtenirFormat(int *Liste);
 
 bool ObtenirOperation(int *Liste);
 
-bool AnalyserListe(int *Liste);
+void AnalyserListe(int *Liste);
 
 int ConvertirListe(int *Liste);
 

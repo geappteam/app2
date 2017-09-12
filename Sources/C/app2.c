@@ -4,7 +4,7 @@
 
 main(){
     // Tests used for development purposes
-    devTest();
+    //devTest();
 
     // Validations of the tests needed for the APP (GE S5 APP2)
     validationTest();

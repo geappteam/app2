@@ -20,6 +20,8 @@ void process(){
 
     while(1)
     {
+        printf("\n||||||||||||||||||| BINARY CALCULATOR :     BEGIN |||||||||||||||||||\n\n");
+
         //Program process
         ObtenirType(Liste);
         ObtenirFormat(Liste);
@@ -27,6 +29,8 @@ void process(){
         AnalyserListe(Liste);
 
         ClearListe();
+
+        printf("\n||||||||||||||||||| BINARY CALCULATOR :     END |||||||||||||||||||\n\n");
     }
 }
 
@@ -69,9 +73,8 @@ bool ObtenirOperation(int *Liste){
     return ERROR;
 }
 
-bool AnalyserListe(int *Liste){
+void AnalyserListe(int *Liste){
 
-    bool isSuccess = true; //TODO: Implement if here's time error check for the following process
     bool noOperationFound = false;
 
     if(Liste != NULL)
@@ -226,11 +229,6 @@ bool AnalyserListe(int *Liste){
         }
     }
 
-    if(isSuccess)
-        return SUCCESS;
-    else
-        printf("\n\n --- ERROR --- \n\n");
-        return ERROR;
 }
 
 int ConvertirListe(int *Liste){

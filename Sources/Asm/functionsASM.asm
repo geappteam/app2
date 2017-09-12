@@ -389,9 +389,9 @@ _EncrypterDonnees
 	MVC	CSR, B5
 	MVC	AMR, B6
 
-	MVKH 3, A1			; Load number of iterations
+	MVKH 0x00000003, A1	; Load number of iterations
 ||	MVKH 0xFFFFFFFF, B0	; Load cryptographic key
-	MVKL 3, A1
+	MVKL 0x00000003, A1
 ||	MVKL 0xFFFFFFFF, B0
 
 	; Setting up cicular addressing
@@ -401,7 +401,7 @@ _EncrypterDonnees
 
 NextEncryption:
 	LDW *A4++, B8
-	SHL A4, 27, B1
+	SHL A4, 27, B1		; Determiner si la fin du block est atteinte
 	[!B1] SUB A1, 1, A1
 	NOP 2
 
