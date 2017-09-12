@@ -7,6 +7,8 @@
 
 #include "test_asm.h"
 
+#define NULL 0
+
 /**
  * Returns true if every test passes
  * This test battery is used testing during development
@@ -147,32 +149,53 @@ bool devTest(){
     }
 
     //  unsigned int DivSubc(unsigned int *TabIntNoS);
-    {
-        unsigned int TabIntNoS[6] = {2,4,5,55,8,808};
-        unsigned int TabIntNoS1[2] = {2,4};
-        unsigned int TabIntNoS2[2] = {5,55};
-        unsigned int TabIntNoS3[2] = {8,808};
-        unsigned int result[3] = {0,0,0};
-        result[0] = DivSubc(TabIntNoS1);
-        result[1] = DivSubc(TabIntNoS2);
-        result[2] = DivSubc(TabIntNoS3);
-        int error = 0;
-        if (result[0] != (TabIntNoS[1]/TabIntNoS[0])){
-            if(result[1] != (TabIntNoS[3]/TabIntNoS[2])){
-                if(result[2] != (TabIntNoS[5]/TabIntNoS[4]))
-                        printf("Passed:\tDivSubc\n");
+        {
+            unsigned int TabIntNoS[12] = {2,4,5,55,8,808,4,2,0,55,8,0};
+            unsigned int TabIntNoS1[2] = {2,4};
+            unsigned int TabIntNoS2[2] = {5,55};
+            unsigned int TabIntNoS3[2] = {8,808};
+            unsigned int TabIntNoS4[2] = {4,2};
+            unsigned int TabIntNoS5[2] = {0,55};
+            unsigned int TabIntNoS6[2] = {8,0};
+            unsigned int result[6] = {0,0,0,0,0,0};
+            result[0] = DivSubc(TabIntNoS1);
+            result[1] = DivSubc(TabIntNoS2);
+            result[2] = DivSubc(TabIntNoS3);
+            result[3] = DivSubc(TabIntNoS4);
+            result[4] = DivSubc(TabIntNoS5);
+            result[5] = DivSubc(TabIntNoS6);
+            int error = NULL;
+            if(result[0] == (TabIntNoS[1]/TabIntNoS[0])){
+                if(result[1] == (TabIntNoS[3]/TabIntNoS[2])){
+                    if(result[2] == (TabIntNoS[5]/TabIntNoS[4])){
+                        if(result[3] == NULL){
+                            if(result[4] == NULL){
+                                if(result[5] == NULL)
+                                    printf("Passed:\tDivSubc\n");
+                                else
+                                    error = 6;
+                            }
+                            else
+                                error = 5;
+                        }
+                        else
+                            error = 4;
+                    }
+                    else
+                        error = 3;
+                }
                 else
-                    error = 3;
+                    error = 2;
             }
             else
-                error = 2;
-        }
-        else
             error = 1;
-        printf("Failed:\tDivSubc\n");
-        printf("%u / %u != %u \n", TabIntNoS[error], TabIntNoS[error-1], result[error-1]);
-        printf("%u / %u = %u \n", TabIntNoS[error], TabIntNoS[error-1], (TabIntNoS[error]/TabIntNoS[error-1]));
-    }
+
+            if(error != NULL){
+                printf("Failed:\tDivSubc\n");
+                printf("%u / %u != %u \n", TabIntNoS[error], TabIntNoS[error-1], result[error-1]);
+                printf("%u / %u = %u \n", TabIntNoS[error], TabIntNoS[error-1], (TabIntNoS[error]/TabIntNoS[error-1]));
+            }
+        }
 
     // void EncrypterDonnees (unsigned int *TabIntNoS);
     {
@@ -259,7 +282,7 @@ void validationTest(){
         printf("%u * %u = %#018llX\n", Operandes[0], Operandes[1], Resultat);
     }
 
-    // MpyEntierSigneOp32bitsRes64bits  ( 32 , ‐1073741824 ) -> hex : signed int
+    // MpyEntierSigneOp32bitsRes64bits  ( 32 , â€�1073741824 ) -> hex : signed int
     {
         int Operandes[] = {32, -1073741824};
         long long Resultat = MpyEntierSigneOp32bitsRes64bits(Operandes);

@@ -11,4 +11,7 @@ main(){
 //
 //    //Program: Process of the Binary Calculator
 //    process();
+
+    return 0;
+
 }

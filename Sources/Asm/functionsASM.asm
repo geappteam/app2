@@ -205,6 +205,26 @@ _DivSubc
     LDW *+A4[0],A2 ;Den
     NOP 4
 
+	; Placing temporarily the numerator in an another register (A4).
+	MV A1, A4
+
+	; Verifying if the denominator is greater than the numerator.
+	CMPGTU A2, A4, A1
+	[A1] B Error   ; !A1 = No Error , A1 = Error.
+	NOP 5
+
+	; Verifying if the denominator is equal to 0.
+	CMPEQ A2, 0, A1
+	[A1] B Error   ; !A1 = No Error , A1 = Error.
+	NOP 5
+
+	; Verifying if the numerator is equal to 0.
+	CMPEQ A4, 0, A1
+	[A1] B Error   ; !A1 = No Error , A1 = Error.
+	NOP 5
+
+	MV A4, A1
+
 	; Defining the value of the bit used (MSB), to search the number of zeroes on the left side of MSB.
 	MVK 1, A0
 
@@ -224,8 +244,6 @@ _DivSubc
 	; Iterator set to 0 before conditional loop.
 	MVK 0, A0
 
-	CMPGTU A0, A6, A1
-
 ConditionalSubLoop:
 	; Performing substraction for division.
 	SUBC A4, A2, A4
@@ -242,7 +260,16 @@ ConditionalSubLoop:
 
 	B B3
     NOP 5
+
+Error:
+	; Returning 0 (denominator is greater than the numerator OR denominator is equal to 0 OR numerator is equal to 0).
+	MVK 0, A4
+
+	B B3
+    NOP 5
+
     .endasmfunc
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
