@@ -339,7 +339,16 @@ _DivIncrementation
     LDW *A4, A3
 	ZERO A4
 	ZERO A1
-	NOP 2
+	MVKH 0x00000001, B1
+	MVKL 0x00000001, B1
+
+	LMBD 1, A3, A5
+||	LMBD 1, B2, B5
+	SUB B5, A5, B4
+	CMPGT B4, -1, B0
+	[B0] SHL B2, B4, B2
+	B B3
+    NOP 5
 
 LOOP:
 
