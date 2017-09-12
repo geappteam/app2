@@ -133,12 +133,12 @@ bool AnalyserListe(int *Liste, unsigned int *TabIntNoS, signed int *TabIntS,floa
                     break;
                 case Division :
                     switch (choix){
-                    case  UnsignedInt_32bits_By_Cond_Sub:    //TODO: Implement in Cunctions.h the two dataTypeNames and replace here
+                    case  UnsignedInt_32bits_By_Cond_Sub:
                         ChoisirOperandesIntNoS(TabIntNoS);
                         DivSubc(TabIntNoS);
                         break;
                     case  UnsignedInt_32bits_By_Incremenation:
-                        ChoisirOperandesIntS(TabIntNoS);
+                        ChoisirOperandesIntS(TabIntS);
                         DivIncrementation(TabIntS);
                         break;
                     case  Floating_32bits:
@@ -216,6 +216,14 @@ void ChoisirDonnees(int *TabDonnees){
     printf("\n\nEnter operand 2 (Donnees):\t");
     scanf("%u",TabDonnees[1]);
 
+}
+
+bool EncrypterDonneesInC(int *TabDonnees){
+    unsigned int key = 0xFFFFFFFF;
+
+    int nbTours = 3; //According to the statement in the Guide étudiant
+
+    return SUCCESS;
 }
 
 void printResult(unsigned short *TabShortNoS, short *TabShortS,  int *TabDonnees){

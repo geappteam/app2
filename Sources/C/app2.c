@@ -12,6 +12,9 @@ main(){
 //    //Program: Process of the Binary Calculator
 //    process();
 
+    int TabDonnees[8] = {0,0,0,0,0,0,0,0};
+    bool error = EncrypterDonneesInC(TabDonnees);
+
     return 0;
 
 }

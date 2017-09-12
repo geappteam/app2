@@ -22,7 +22,7 @@ enum operation {
 
 enum dataTypeName {
     UnsignedInt_32bits = 12,
-    UnsignedInt_32bits_By_Incremenation = 13,  //TODO: 'Y' must be replaced by a real number, then remove comments
+    UnsignedInt_32bits_By_Incremenation = 13,
     UnsignedInt_32bits_By_Cond_Sub = 14,
     SignedInt_32bits = 22,
     Fractional_32bits = 32,
@@ -51,6 +51,8 @@ bool ChoisirOperandesFloat(float *TabFloat);
 bool ChoisirOperandesDouble(double *TabDouble);
 
 bool ChoisirDonnees(int *TabDonnees);
+
+bool EncrypterDonneesInC(int *TabDonnees);
 
 void printResult(unsigned short *TabShortNoS, short *TabShortS,  int *TabDonnees);
 
