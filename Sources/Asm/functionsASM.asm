@@ -28,13 +28,13 @@ _AddEntierNonSigne32bits
 
     LDW *+A4[1],A3
     LDW *+A4[0],B4
-    NOP 4
+    MVKL 0xFFFFFFFF, A6
+    MVKH 0xFFFFFFFF, A6
+    NOP 2
 
     ADDU A3, B4, A5:A4
-	OR B0, A5, B0
-    [B0] CLR A4,A4, A5
-    [B0] MVKL 0xFFFFFFFF, A4
-
+	MV A5, B0
+    [B0] MV A6, A4
 
     B B3
     NOP 5
@@ -49,19 +49,12 @@ _AddEntierSigne32bits
     LDW *+A4[0],B4
     NOP 4
 
-
-
-    SADD A3, B4, B5
-
-    NOP 1
-
-	MVC CSR, B6
-
-
+    SADD A3, B4, A4
 
     B B3
     NOP 5
     .endasmfunc
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _AddFractionnaire32bits_Q7_24_Q15_16
@@ -71,8 +64,8 @@ _AddFractionnaire32bits_Q7_24_Q15_16
     LDW *+A4[0],B4 ; Q7.24
     NOP 4
 
-	ADDK	.S2	128,B4
-	SHR .S1	B4,8,A4
+	ADDK .S2 128, B4
+	SHR  .S1 B4, 8, A4
 
 	SADD .L1 A4,A3,A4
 
@@ -189,8 +182,6 @@ _SubFlottant64bits
 
 	SUBDP B1:B0,A3:A2,A5:A4
 
-
-
     B B3
     NOP 5
     .endasmfunc
@@ -270,7 +261,6 @@ Error:
 
     .endasmfunc
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _MpyFlottant64bits
@@ -289,7 +279,6 @@ _MpyFlottant64bits
     B B3
     NOP 5
     .endasmfunc
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -347,21 +336,41 @@ _DivIncrementation
     .asmfunc
 
     LDW *+A4[1], B2	; Diviseur
-    LDW *A4, A3
+    LDW *A4, B6
 	ZERO A4
 	ZERO A1
-	NOP 2
+	MVKH 0x00000001, A2	; Write head
+	MVKL 0x00000001, A2
 
-LOOP:
+	LMBD 1, B6, A5
+||	LMBD 1, B2, B5
+	SUB B5, A5, B4
+	CMPGT B5, A5, B0
+||  MV B4, A5
+	[B0]SHL .S2 B2, B4, B2	; Shifting divider left
+||	[B0]SHL .S1 A2, A5, A2	; Shifting write head left
+	CMPGT B2, B6, B0
+	[B0]SHRU B2, 1, B2	; Shifting divider
+||	[B0]SHRU A2, 1, A2	; Shifting write head
 
-	SUB A3, B2, A3
-||	ADDK 1, A4
-	CMPGT A3, 0, A1
-	[A1] B LOOP
-	NOP 5
+Iteration:
 
-    B B3
-    NOP 5
+	[!A2]B B3			; If the write head is flushed
+||	[A2]B Iteration
+||	[A2]SUB B6, B2, B6
+||	[A2]ADD A2, A4, A4
+
+	LMBD 1, B6, A5
+||	LMBD 1, B2, B5
+	SUB A5, B5, B4
+||	SUB A5, B5, A5
+	SHRU .S2 B2, B4, B2	; Shifting divider right
+||	SHRU .S1 A2, A5, A2	; Shifting write head right
+	CMPGT B2, B6, B0
+	[B0]SHRU B2, 1, B2
+||	[B0]SHRU A2, 1, A2
+
+
     .endasmfunc
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
