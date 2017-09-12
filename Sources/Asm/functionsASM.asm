@@ -252,9 +252,7 @@ ConditionalSubLoop:
 	; Isolating the result
 	MVK 32, A9
 	SUB A9, A6, A10
-
-
-
+	ADDK -1, A10
 	SHL A4, A10, A4
 	SHRU A4, A10, A4
 
