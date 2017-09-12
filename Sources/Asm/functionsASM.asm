@@ -336,30 +336,41 @@ _DivIncrementation
     .asmfunc
 
     LDW *+A4[1], B2	; Diviseur
-    LDW *A4, A3
+    LDW *A4, B6
 	ZERO A4
 	ZERO A1
-	MVKH 0x00000001, B1
-	MVKL 0x00000001, B1
+	MVKH 0x00000001, A2	; Write head
+	MVKL 0x00000001, A2
 
-	LMBD 1, A3, A5
+	LMBD 1, B6, A5
 ||	LMBD 1, B2, B5
 	SUB B5, A5, B4
-	CMPGT B4, -1, B0
-	[B0] SHL B2, B4, B2
-	B B3
-    NOP 5
+	CMPGT B5, A5, B0
+||  MV B4, A5
+	[B0]SHL .S2 B2, B4, B2	; Shifting divider left
+||	[B0]SHL .S1 A2, A5, A2	; Shifting write head left
+	CMPGT B2, B6, B0
+	[B0]SHRU B2, 1, B2	; Shifting divider
+||	[B0]SHRU A2, 1, A2	; Shifting write head
 
-LOOP:
+Iteration:
 
-	SUB A3, B2, A3
-||	ADDK 1, A4
-	CMPGT A3, 0, A1
-	[A1] B LOOP
-	NOP 5
+	[!A2]B B3			; If the write head is flushed
+||	[A2]B Iteration
+||	[A2]SUB B6, B2, B6
+||	[A2]ADD A2, A4, A4
 
-    B B3
-    NOP 5
+	LMBD 1, B6, A5
+||	LMBD 1, B2, B5
+	SUB A5, B5, B4
+||	SUB A5, B5, A5
+	SHRU .S2 B2, B4, B2	; Shifting divider right
+||	SHRU .S1 A2, A5, A2	; Shifting write head right
+	CMPGT B2, B6, B0
+	[B0]SHRU B2, 1, B2
+||	[B0]SHRU A2, 1, A2
+
+
     .endasmfunc
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

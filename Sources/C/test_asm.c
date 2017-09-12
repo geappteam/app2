@@ -300,10 +300,9 @@ void validationTest(){
 
     // DivIncrementation (16777215 , 1) -> decimal : unsigned integer
     {
-        printf("\n\nComputing ...\n");    // TODO: Optimize this function
         unsigned int Operandes[] = {16777215, 1};
         unsigned int Resultat = DivIncrementation(Operandes);
-        printf("DivIncrementation:\n\n\t");
+        printf("\n\nDivIncrementation:\n\n\t");
         printf("%u / %u = %u\n", Operandes[0], Operandes[1], Resultat);
     }
 
