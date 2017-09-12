@@ -10,8 +10,6 @@
 #define ERROR 0
 #define SUCCESS 1
 
-#define UNSIGNED_INT_MAX 65535
-
 enum operation {
     Addition = 1,
     Subtraction = 2,
@@ -38,20 +36,24 @@ bool ObtenirFormat(int *Liste);
 
 bool ObtenirOperation(int *Liste);
 
-bool AnalyserListe(int *Liste, unsigned int *TabIntNoS, signed int *TabIntS,float *TabFloat, double *TabDouble,int *TabDonnees);
+bool AnalyserListe(int *Liste);
 
 int ConvertirListe(int *Liste);
 
-bool ChoisirOperandesIntNoS(unsigned int *TabIntNoS);
+void ChoisirOperandesIntNoS(unsigned int *TabIntNoS);
 
-bool ChoisirOperandesIntS(signed int *TabIntS);
+void ChoisirOperandesIntS(signed int *TabIntS);
 
-bool ChoisirOperandesFloat(float *TabFloat);
+void ChoisirOperandesFloat(float *TabFloat);
 
-bool ChoisirOperandesDouble(double *TabDouble);
+void ChoisirOperandesDouble(double *TabDouble);
 
-bool ChoisirDonnees(int *TabDonnees);
+void ChoisirDonnees(int *TabDonnees);
 
 void printResult(unsigned short *TabShortNoS, short *TabShortS,  int *TabDonnees);
+
+void ClearListe();
+
+void ChoisirCryptData(int TabDonnees[8]);
 
 #endif //_CFUNCTIONS_H

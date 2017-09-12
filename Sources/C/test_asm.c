@@ -308,8 +308,7 @@ void validationTest(){
     }
 
     // DivSubc ( 16777215 , 1 ) and (11 , 3) -> output in decimal: unsigned integer
-    printf("\n\nDivSubc: Temporairement non disponnible\n");
-/*  { TODO: verify this test.
+    {
         unsigned int Operandes1[] = { 16777215, 1 };
         unsigned int Operandes2[] = { 11, 3 };
         unsigned int result1 = DivSubc(Operandes1);
@@ -318,13 +317,13 @@ void validationTest(){
         printf("%u / %u = %u\n", Operandes1[0], Operandes1[1], result1);
         printf("\n\nDivSubc TEST 2:\n\n\t");
         printf("%u / %u = %u\n", Operandes2[0], Operandes2[1], result2);
-    }*/
+    }
 
     // DivFlottant32bits (11, 3) -> output in decimal: float
     {
         float Operandes[] = { 11, 3 };
         float Resultat = DivFlottant32bits(Operandes);
-        printf("%.1f / %.1f = %f\n", Operandes[0], Operandes[1], Resultat);
+        printf("\n\nDivFlottant32bits:\n\n\t");
         printf("%.1f / %.1f = %f\n", Operandes[0], Operandes[1], Resultat);
     }
 

@@ -12,8 +12,8 @@
 #define INCLUDES_FUNCTIONSASM_H_
 
 // Addition
-double AddEntierNonSigne32bits(unsigned int *TabIntNoS);
-double AddEntierSigne32bits(int *TabIntS);
+unsigned int AddEntierNonSigne32bits(unsigned int *TabIntNoS);
+int AddEntierSigne32bits(int *TabIntS);
 int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
 
 // Subtraction

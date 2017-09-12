@@ -28,13 +28,13 @@ _AddEntierNonSigne32bits
 
     LDW *+A4[1],A3
     LDW *+A4[0],B4
-    NOP 4
+    MVKL 0xFFFFFFFF, A6
+    MVKH 0xFFFFFFFF, A6
+    NOP 2
 
     ADDU A3, B4, A5:A4
-	OR B0, A5, B0
-    [B0] CLR A4,A4, A5
-    [B0] MVKL 0xFFFFFFFF, A4
-
+	MV A5, B0
+    [B0] MV A6, A4
 
     B B3
     NOP 5
@@ -49,19 +49,12 @@ _AddEntierSigne32bits
     LDW *+A4[0],B4
     NOP 4
 
-
-
-    SADD A3, B4, B5
-
-    NOP 1
-
-	MVC CSR, B6
-
-
+    SADD A3, B4, A4
 
     B B3
     NOP 5
     .endasmfunc
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _AddFractionnaire32bits_Q7_24_Q15_16
@@ -71,8 +64,8 @@ _AddFractionnaire32bits_Q7_24_Q15_16
     LDW *+A4[0],B4 ; Q7.24
     NOP 4
 
-	ADDK	.S2	128,B4
-	SHR .S1	B4,8,A4
+	ADDK .S2 128, B4
+	SHR  .S1 B4, 8, A4
 
 	SADD .L1 A4,A3,A4
 
@@ -189,8 +182,6 @@ _SubFlottant64bits
 
 	SUBDP B1:B0,A3:A2,A5:A4
 
-
-
     B B3
     NOP 5
     .endasmfunc
@@ -270,7 +261,6 @@ Error:
 
     .endasmfunc
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 _MpyFlottant64bits
@@ -289,7 +279,6 @@ _MpyFlottant64bits
     B B3
     NOP 5
     .endasmfunc
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
