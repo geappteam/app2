@@ -18,7 +18,7 @@ int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
 
 // Subtraction
 int SubEntierSigne32bits(int *TabIntNoS);
-double SubFlottant64bits(double *TabXXX);
+double SubFlottant64bits(double *TabDouble);
 long SubEntierNonSigne32bits(unsigned int *TabIntNoS);
 
 // Multiplication

@@ -3,11 +3,14 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include "functionsASM.h"
 
 #define NULL 0
 
 #define ERROR 0
 #define SUCCESS 1
+
+#define UNSIGNED_INT_MAX 65535
 
 enum operation {
     Addition = 1,
@@ -19,8 +22,8 @@ enum operation {
 
 enum dataTypeName {
     UnsignedInt_32bits = 12,
-//    UnsignedInt_32bits = 1Y,  //TODO: 'Y' must be replaced by a real number, then remove comments
-//    UnsignedInt_32bits = 1Y,
+    UnsignedInt_32bits_By_Incremenation = 13,  //TODO: 'Y' must be replaced by a real number, then remove comments
+    UnsignedInt_32bits_By_Cond_Sub = 14,
     SignedInt_32bits = 22,
     Fractional_32bits = 32,
     Floating_32bits = 42,
@@ -35,7 +38,7 @@ bool ObtenirFormat(int *Liste);
 
 bool ObtenirOperation(int *Liste);
 
-bool AnalyserListe(int *Liste, unsigned short *TabShortNoS, short *TabShortS);
+bool AnalyserListe(int *Liste, unsigned int *TabIntNoS, signed int *TabIntS,float *TabFloat, double *TabDouble,int *TabDonnees);
 
 int ConvertirListe(int *Liste);
 
