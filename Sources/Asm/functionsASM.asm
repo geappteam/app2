@@ -319,28 +319,19 @@ termDiv:
 _DivIncrementation
     .asmfunc
 
-    LDW *+A4[1],A3
-    NOP 5
-    LDW *+A4[0],B2
-    NOP 5
-	MVK 0x00000000, A2
-	NOP 5
-	MVK 0x00000000, A1
-	NOP 5
-
+    LDW *+A4[1], B2	; Diviseur
+    LDW *A4, A3
+	ZERO A4
+	ZERO A1
+	NOP 2
 
 LOOP:
 
 	SUB A3, B2, A3
-	NOP 6
-	ADD 1,A2,A2
+||	ADDK 1, A4
+	CMPGT A3, 0, A1
+	[A1] B LOOP
 	NOP 5
-	CMPGT -1,A3,A1
-	NOP 5
-	[!A1] B LOOP
-	NOP 5
-	ADD -2,A2,A2
-
 
     B B3
     NOP 5

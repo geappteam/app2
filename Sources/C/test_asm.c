@@ -178,9 +178,9 @@ bool devTest(){
     {
         //unsigned int testGroup[]={1,2,3,4,5,6,7,8};
         // Using a heap allocation to align memory
-        unsigned int * testGroup;
+        int * testGroup;
         size_t blockSize = sizeof(unsigned int)*8;  // Application demands 8 * 32 bits
-        testGroup= (unsigned int*) memalign(blockSize,blockSize);
+        testGroup= (int*) memalign(blockSize,blockSize);
 
         int i;
         for (i = 0; i < 8; ++i){
@@ -251,26 +251,63 @@ void validationTest(){
         printf("%.2f - %.2f = %.2f\n", Operandes[0], Operandes[1], Resultat);
     }
 
-    // MpyEntierNonSigneOp32bitsRes64bits  ( 32 , 3221225472 ) -> hex
+    // MpyEntierNonSigneOp32bitsRes64bits  ( 32 , 3221225472 ) -> hex : unsigned int
     {
         unsigned int Operandes[] = {32, 3221225472};
         unsigned long long Resultat = MpyEntierNonSigneOp32bitsRes64bits(Operandes);
         printf("\n\nMpyEntierNonSigneOp32bitsRes64bits:\n\n\t");
-        printf("%u * %u = %#018lX\n", Operandes[0], Operandes[1], Resultat);
+        printf("%u * %u = %#018llX\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // MpyEntierSigneOp32bitsRes64bits  ( 32 , ‐1073741824 ) -> hex : signed int
+    {
+        int Operandes[] = {32, -1073741824};
+        long long Resultat = MpyEntierSigneOp32bitsRes64bits(Operandes);
+        printf("\n\nMpyEntierSigneOp32bitsRes64bits:\n\n\t");
+        printf("%d * %d = %#018llX\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // MpyfractionnaireOp32bitsRes64bits_Q7.24_Q15.16 (14.25 , 1) -> hex : Q23.40
+    {
+        int Operandes[] = {(int)(14.25*(1<<24)), (int)1<<16};
+        long long Resultat = MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(Operandes);
+        printf("\n\nMpyfractionnaireOp32bitsRes64bits_Q7.24_Q15.16:  (Q23.40)\n\n\t");
+        printf("%.2f * %d = %#018llX\n", ((double)Operandes[0])/(1<<24), Operandes[1]>>16, Resultat);
+    }
+
+    // DivIncrementation (16777215 , 1) -> decimal : unsigned integer
+    {
+        printf("\n\nComputing ...\n");    // TODO: Optimize this function
+        unsigned int Operandes[] = {16777215, 1};
+        unsigned int Resultat = DivIncrementation(Operandes);
+        printf("DivIncrementation:\n\n\t");
+        printf("%u / %u = %u\n", Operandes[0], Operandes[1], Resultat);
     }
 
     // DivSubc ( 16777215 , 1 ) and (11 , 3) -> output in decimal: unsigned integer
-    {
-        unsigned int Operandes1[] = { 1, 16777215 };
-        unsigned int Operandes2[] = { 3 , 11 };
+    printf("\n\nDivSubc: Temporairement non disponnible\n");
+/*  { TODO: verify this test.
+        unsigned int Operandes1[] = { 16777215, 1 };
+        unsigned int Operandes2[] = { 11, 3 };
         unsigned int result1 = DivSubc(Operandes1);
         unsigned int result2 = DivSubc(Operandes2);
         printf("\n\nDivSubc TEST 1:\n\n\t");
         printf("%u / %u = %u\n", Operandes1[0], Operandes1[1], result1);
         printf("\n\nDivSubc TEST 2:\n\n\t");
         printf("%u / %u = %u\n", Operandes2[0], Operandes2[1], result2);
+    }*/
+
+    // DivFlottant32bits (11, 3) -> output in decimal: float
+    {
+        float Operandes[] = { 11, 3 };
+        float Resultat = DivFlottant32bits(Operandes);
+        printf("%.1f / %.1f = %f\n", Operandes[0], Operandes[1], Resultat);
+        printf("%.1f / %.1f = %f\n", Operandes[0], Operandes[1], Resultat);
     }
 
-    // TODO: finish adding all the required tests
+    // EncrypterDonnees (defini par le tuteur)
+    {
+        printf("\n\nEncrypterDonnees: Aucune valeurs specifies\n");
+    }
 }
 
