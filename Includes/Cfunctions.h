@@ -1,3 +1,8 @@
+/*
+ * Function prototypes and enums for the execution of the main program
+ *
+ * functionsASM.h
+ */
 #ifndef _CFUNCTIONS_H
 #define _CFUNCTIONS_H
 
@@ -6,9 +11,10 @@
 #include "functionsASM.h"
 
 #define NULL 0
-
 #define ERROR 0
 #define SUCCESS 1
+
+
 
 enum operation {
     Addition = 1,
@@ -28,7 +34,11 @@ enum dataTypeName {
     Floating_64bits   = 44
 };
 
+
+// Main program start
 void process();
+
+
 
 bool ObtenirType(int *Liste);
 

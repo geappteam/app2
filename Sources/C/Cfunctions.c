@@ -1,21 +1,22 @@
 /*
- * Cfunctions.c
+ * Binary Calculator functions
+ * The functions here proccess user requests and
+ * compute using the appropriate functions
  *
  *  Created on: 8 sept. 2017
- *      Author: para2709
  */
-
 #include "Cfunctions.h"
 
 #pragma DATA_ALIGN(TabDonnees, 32)
 int TabDonnees[8] = {0,0,0,0,0,0,0,0};
+
 int Liste[3] = {0,0,0};
 unsigned int TabIntNoS [2] = {0,0};
 int TabIntS [2] = {0,0};
 double TabDouble [2] = {0,0};
 float TabFloat [2] = {0,0};
 
-
+// Central loop function
 void process(){
 
     while(1)
@@ -34,6 +35,7 @@ void process(){
     }
 }
 
+// Asks the user for data type
 bool ObtenirType(int *Liste){
     if(Liste != NULL)
     {
@@ -47,6 +49,7 @@ bool ObtenirType(int *Liste){
     return ERROR;
 }
 
+// Asks the user for variable size
 bool ObtenirFormat(int *Liste){
     if(Liste != NULL)
     {
@@ -60,6 +63,7 @@ bool ObtenirFormat(int *Liste){
     return ERROR;
 }
 
+// Asks the user for operation type
 bool ObtenirOperation(int *Liste){
     if(Liste != NULL)
     {
@@ -73,6 +77,7 @@ bool ObtenirOperation(int *Liste){
     return ERROR;
 }
 
+// Proccess a user request based on the options selected
 void AnalyserListe(int *Liste){
 
     bool noOperationFound = false;
@@ -176,6 +181,8 @@ void AnalyserListe(int *Liste){
                 {
                     switch (choix){
                         case  UnsignedInt_32bits:
+
+                            // Ask for division algorithm
                             printf("\n\n| 1 => Incrementation | 2 => SUBC |\n\n");
                             printf("Choose algorithm: ");
                             int algo;
@@ -244,7 +251,6 @@ int ConvertirListe(int *Liste){
     return choix;
 }
 
-//TODO: Create all the functions needed below and verify format returned and entered
 void ChoisirOperandesIntNoS(unsigned int *TabIntNoS){
     printf("\n\nEnter operand 1 (unsigned integer):\t");
     scanf("%u",TabIntNoS);
@@ -304,9 +310,9 @@ bool EncrypterDonneesInC(int *TabDonnees){
         return ERROR;
 }
 
+// Clears the options list
 void ClearListe(){
     int i;
     for (i = 0; i < 3; ++i)
         Liste[i]=0;
 }
-

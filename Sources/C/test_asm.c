@@ -1,13 +1,16 @@
 /*
- * test_asm.c
+ * This document holds the test procedures required for
+ * developpement of the ASM functions
  *
- *  Created on: 8 sept. 2017
- *      Author: dene2303
+ * The validation test procedure is also included as it
+ * was used for debugging
+ *
+ * test_asm.c
  */
-
 #include "test_asm.h"
 
 #define NULL 0
+
 
 //BEGIN : ENCRYPTING TIME TEST'S VARIABLES
 // Arrays used to compare time of encryption
@@ -16,6 +19,138 @@ int TabDonnees1[8] = {5,6,7,8,9,11,167,8888};
 #pragma DATA_ALIGN(TabDonnees2, 32)
 int TabDonnees2[8] = {5,6,7,8,9,11,167,8888};
 //END : ENCRYPTING TEST'S VARIABLES
+
+
+
+/**
+ * This procedure prints the results demanded in:
+ * Includes all the points demanded.
+ * http://www.gel.usherbrooke.ca/s5elec/a17/doc/app2/file/Validation_APP2_A17.pdf
+ */
+void validationTest(){
+
+    printf("\f\nValidation APP2 S5elec H17\n");
+
+
+    // AddEntierSigne32bits ( 4 294 967 295, 1) -> output in hex: 0xXXXX
+    {
+        int Operandes[] = {0xFFFFFFFF, 1};
+        int Resultat = AddEntierSigne32bits(Operandes);
+        printf("\n\nAddEntierSigne32bits (Bonus):\n\n\t");
+        printf("%#010X + %d = %#010X\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+
+    // AddFractionnaire32bits_Q7.24_Q15.16 ( 14.25, 1) -> output in decimal: integer
+    {
+        int Operandes[] = {(int)(14.25*(1<<24)), (int)(1<<16)};
+        int Resultat = AddFractionnaire32bits_Q7_24_Q15_16(Operandes);
+        printf("\n\nAddFractionnaire32bits_Q7.24_Q15.16 (resultat Q15.16):\n\n\t");
+        printf("%.2f + %d = %d\n", ((double)Operandes[0])/(1<<24), Operandes[1]>>16, Resultat);
+    }
+
+    // SubEntierSigne32bits (1,2) -> unspecified format
+    {
+        int Operandes[] = {1, 2};
+        int Resultat = SubEntierSigne32bits(Operandes);
+        printf("\n\nSubEntierSigne32bits (Bonus):\n\n\t");
+        printf("%d - %d = %d\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // SubFlottant64bits ( 2.01 , 8.12 ) -> unspecified format
+    {
+        double Operandes[] = {2.01, 8.12};
+        double Resultat = SubFlottant64bits(Operandes);
+        printf("\n\nSubFlottant64bits:\n\n\t");
+        printf("%.2f - %.2f = %.2f\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // MpyEntierNonSigneOp32bitsRes64bits  ( 32 , 3221225472 ) -> hex : unsigned int
+    {
+        unsigned int Operandes[] = {32, 3221225472};
+        unsigned long long Resultat = MpyEntierNonSigneOp32bitsRes64bits(Operandes);
+        printf("\n\nMpyEntierNonSigneOp32bitsRes64bits:\n\n\t");
+        printf("%u * %u = %#018llX\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // MpyEntierSigneOp32bitsRes64bits  ( 32 , â€�1073741824 ) -> hex : signed int
+    {
+        int Operandes[] = {32, -1073741824};
+        long long Resultat = MpyEntierSigneOp32bitsRes64bits(Operandes);
+        printf("\n\nMpyEntierSigneOp32bitsRes64bits:\n\n\t");
+        printf("%d * %d = %#018llX\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // MpyfractionnaireOp32bitsRes64bits_Q7.24_Q15.16 (14.25 , 1) -> hex : Q23.40
+    {
+        int Operandes[] = {(int)(14.25*(1<<24)), (int)1<<16};
+        long long Resultat = MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(Operandes);
+        printf("\n\nMpyfractionnaireOp32bitsRes64bits_Q7.24_Q15.16:  (Q23.40)\n\n\t");
+        printf("%.2f * %d = %#018llX\n", ((double)Operandes[0])/(1<<24), Operandes[1]>>16, Resultat);
+    }
+
+    // DivIncrementation (16777215 , 1) -> decimal : unsigned integer
+    {
+        unsigned int Operandes[] = {16777215, 1};
+        unsigned int Resultat = DivIncrementation(Operandes);
+        printf("\n\nDivIncrementation:\n\n\t");
+        printf("%u / %u = %u\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // DivSubc ( 16777215 , 1 ) and (11 , 3) -> output in decimal: unsigned integer
+    {
+        unsigned int Operandes1[] = { 16777215, 1 };
+        unsigned int Operandes2[] = { 11, 3 };
+        unsigned int result1 = DivSubc(Operandes1);
+        unsigned int result2 = DivSubc(Operandes2);
+        printf("\n\nDivSubc TEST 1:\n\n\t");
+        printf("%u / %u = %u\n", Operandes1[0], Operandes1[1], result1);
+        printf("\n\nDivSubc TEST 2:\n\n\t");
+        printf("%u / %u = %u\n", Operandes2[0], Operandes2[1], result2);
+    }
+
+    // DivFlottant32bits (11, 3) -> output in decimal: float
+    {
+        float Operandes[] = { 11, 3 };
+        float Resultat = DivFlottant32bits(Operandes);
+        printf("\n\nDivFlottant32bits:\n\n\t");
+        printf("%.1f / %.1f = %f\n", Operandes[0], Operandes[1], Resultat);
+    }
+
+    // EncrypterDonnees (defini par le tuteur)
+    {
+        int i;
+
+        //printf used to place breakpoint in order to check the difference in clock cylces of each function
+        printf("\n\nENCRYPTION IN C TEST : BEGIN\n");
+        bool noError = EncrypterDonneesInC(TabDonnees1);
+        printf("\n\nENCRYPTION IN C TEST : END\n");
+
+        if(noError)
+        {
+            printf("\n\n");
+            for(i = 0; i < 8; ++i){
+                printf("%d\t",TabDonnees1[i]);
+            }
+        }
+
+        printf("\n\nENCRYPTION IN ASM TEST : BEGIN\n");
+        EncrypterDonnees(TabDonnees2);
+        printf("\n\nENCRYPTION IN C TEST : END\n");
+
+        printf("\n\n");
+        for(i = 0; i < 8; ++i){
+            printf("%d\t",TabDonnees2[i]);
+        }
+        printf("\n");
+        //printf("\n\nEncrypterDonnees: Aucune valeurs specifies\n");
+    }
+}
+
+
+
+
+
 
 /**
  * Returns true if every test passes
@@ -26,7 +161,6 @@ bool devTest(){
     // Testing
 
     // int AddFractionnaire32bits_Q7_24_Q15_16(int *TabIntS);
-    // TODO: fix test procedure
     {
         int nbQ7_24 = 127;
         int nbQ15_16 = 32768;
@@ -84,7 +218,7 @@ bool devTest(){
     }
 
     //  int DivSubc(unsigned int *TabIntNoS);
-    { //TODO:fix test procedure -> asm function was damaged on merge dca73666323845c060c280fcbc4d2da705ed8303
+    {
         unsigned int TabIntNoS[2];
         TabIntNoS[0] =1030; //NUM
         TabIntNoS[1] =10; //DEN
@@ -239,130 +373,3 @@ bool devTest(){
     printf("PASSED:\tALL TESTS\n");
     return true;
 }
-
-/**
- * This procedure prints the results demanded in
- * http://www.gel.usherbrooke.ca/s5elec/a17/doc/app2/file/Validation_APP2_A17.pdf
- */
-void validationTest(){
-
-    printf("\f\nValidation APP2 S5elec H17\n");
-
-
-    // AddEntierSigne32bits ( 4 294 967 295, 1) -> output in hex: 0xXXXX
-    {
-        int Operandes[] = {0xFFFFFFFF, 1};
-        int Resultat = AddEntierSigne32bits(Operandes);
-        printf("\n\nAddEntierSigne32bits (Bonus):\n\n\t");
-        printf("%#010X + %d = %#010X\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-
-    // AddFractionnaire32bits_Q7.24_Q15.16 ( 14.25, 1) -> output in decimal: integer
-    {
-        int Operandes[] = {(int)(14.25*(1<<24)), (int)(1<<16)};
-        int Resultat = AddFractionnaire32bits_Q7_24_Q15_16(Operandes);
-        printf("\n\nAddFractionnaire32bits_Q7.24_Q15.16 (resultat Q15.16):\n\n\t");
-        printf("%.2f + %d = %d\n", ((double)Operandes[0])/(1<<24), Operandes[1]>>16, Resultat);
-    }
-
-    // SubEntierSigne32bits (1,2) -> unspecified format
-    {
-        int Operandes[] = {1, 2};
-        int Resultat = SubEntierSigne32bits(Operandes);
-        printf("\n\nSubEntierSigne32bits (Bonus):\n\n\t");
-        printf("%d - %d = %d\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-    // SubFlottant64bits ( 2.01 , 8.12 ) -> unspecified format
-    {
-        double Operandes[] = {2.01, 8.12};
-        double Resultat = SubFlottant64bits(Operandes);
-        printf("\n\nSubFlottant64bits:\n\n\t");
-        printf("%.2f - %.2f = %.2f\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-    // MpyEntierNonSigneOp32bitsRes64bits  ( 32 , 3221225472 ) -> hex : unsigned int
-    {
-        unsigned int Operandes[] = {32, 3221225472};
-        unsigned long long Resultat = MpyEntierNonSigneOp32bitsRes64bits(Operandes);
-        printf("\n\nMpyEntierNonSigneOp32bitsRes64bits:\n\n\t");
-        printf("%u * %u = %#018llX\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-    // MpyEntierSigneOp32bitsRes64bits  ( 32 , â€�1073741824 ) -> hex : signed int
-    {
-        int Operandes[] = {32, -1073741824};
-        long long Resultat = MpyEntierSigneOp32bitsRes64bits(Operandes);
-        printf("\n\nMpyEntierSigneOp32bitsRes64bits:\n\n\t");
-        printf("%d * %d = %#018llX\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-    // MpyfractionnaireOp32bitsRes64bits_Q7.24_Q15.16 (14.25 , 1) -> hex : Q23.40
-    {
-        int Operandes[] = {(int)(14.25*(1<<24)), (int)1<<16};
-        long long Resultat = MpyfractionnaireOp32bitsRes64bits_Q7_24_Q15_16(Operandes);
-        printf("\n\nMpyfractionnaireOp32bitsRes64bits_Q7.24_Q15.16:  (Q23.40)\n\n\t");
-        printf("%.2f * %d = %#018llX\n", ((double)Operandes[0])/(1<<24), Operandes[1]>>16, Resultat);
-    }
-
-    // DivIncrementation (16777215 , 1) -> decimal : unsigned integer
-    {
-        unsigned int Operandes[] = {16777215, 1};
-        unsigned int Resultat = DivIncrementation(Operandes);
-        printf("\n\nDivIncrementation:\n\n\t");
-        printf("%u / %u = %u\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-    // DivSubc ( 16777215 , 1 ) and (11 , 3) -> output in decimal: unsigned integer
-    {
-        unsigned int Operandes1[] = { 16777215, 1 };
-        unsigned int Operandes2[] = { 11, 3 };
-        unsigned int result1 = DivSubc(Operandes1);
-        unsigned int result2 = DivSubc(Operandes2);
-        printf("\n\nDivSubc TEST 1:\n\n\t");
-        printf("%u / %u = %u\n", Operandes1[0], Operandes1[1], result1);
-        printf("\n\nDivSubc TEST 2:\n\n\t");
-        printf("%u / %u = %u\n", Operandes2[0], Operandes2[1], result2);
-    }
-
-    // DivFlottant32bits (11, 3) -> output in decimal: float
-    {
-        float Operandes[] = { 11, 3 };
-        float Resultat = DivFlottant32bits(Operandes);
-        printf("\n\nDivFlottant32bits:\n\n\t");
-        printf("%.1f / %.1f = %f\n", Operandes[0], Operandes[1], Resultat);
-    }
-
-    // EncrypterDonnees (defini par le tuteur)
-    {
-        int i;
-
-        //printf used to place breakpoint in order to check the difference in clock cylces of each function
-        printf("\n\nENCRYPTION IN C TEST : BEGIN\n");
-        bool noError = EncrypterDonneesInC(TabDonnees1);
-        printf("\n\nENCRYPTION IN C TEST : END\n");
-
-        if(noError)
-        {
-            printf("\n\n");
-            for(i = 0; i < 8; ++i){
-                printf("%d\t",TabDonnees1[i]);
-            }
-        }
-
-        printf("\n\nENCRYPTION IN ASM TEST : BEGIN\n");
-        EncrypterDonnees(TabDonnees2);
-        printf("\n\nENCRYPTION IN C TEST : END\n");
-
-        printf("\n\n");
-        for(i = 0; i < 8; ++i){
-            printf("%d\t",TabDonnees2[i]);
-        }
-        printf("\n");
-        //printf("\n\nEncrypterDonnees: Aucune valeurs specifies\n");
-    }
-
-
-}
-

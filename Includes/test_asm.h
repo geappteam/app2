@@ -1,9 +1,6 @@
 /*
- * The asm test suite functions
+ * Function prototypes of the test suite
  * test_asm.h
- *
- *  Created on: 8 sept. 2017
- *      Author: dene2303
  */
 
 #ifndef SOURCES_C_TEST_ASM_H_

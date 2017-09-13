@@ -10,5 +10,6 @@ main(){
     validationTest();
 
     // Program: Process of the Binary Calculator
+    // Binary calculator interface
     process();
 }
