@@ -34,7 +34,7 @@ _AddEntierNonSigne32bits
 
     ADDU A3, B4, A5:A4
 	MV A5, B0
-    [B0] MV A6, A4
+    [B0] MV A6, A4	; return max if overflow
 
     B B3
     NOP 5
@@ -48,8 +48,9 @@ _AddEntierSigne32bits
     LDW *+A4[1],A3
     LDW *+A4[0],B4
     NOP 4
-
-    SADD A3, B4, A4
+    
+    ; Add Two Signed Integers With Saturation
+    SADD A3, B4, A4    
 
     B B3
     NOP 5
@@ -177,9 +178,9 @@ _SubFlottant64bits
 
 	LDDW *+A4[0],B1:B0
 	LDDW *+A4[1],A3:A2
-
 	NOP 4
-
+	
+	;Subtract Two Double-Precision Floating-Point Values
 	SUBDP B1:B0,A3:A2,A5:A4
 
     B B3
@@ -277,7 +278,8 @@ _MpyFlottant64bits
 	LDDW *+A4[1],A3:A2
 
 	NOP 4
-
+	
+	;Multiplier two Double-Precision Floating-Point Values
 	MPYDP B1:B0,A3:A2,A5:A4
 	NOP 9
 
